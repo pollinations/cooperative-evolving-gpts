@@ -390,13 +390,14 @@ class Player():
             model="gpt-3.5-turbo-0613",
             messages=self.history,
             functions=functions,
-            temperature=0.1,
+            temperature=1,
         )
         try:
             response = completion.choices[0].message.to_dict()
             self.history.append(response)
             move = response["function_call"].to_dict()
             move["from"] = self.name
+            json.loads(move["arguments"])
             # print the history to {name}.txt
             def format_message(message):
                 text = "-" * 120 + "\n" + message["role"] + ": \n"
@@ -458,6 +459,9 @@ class Game():
             if move["name"] == "send_message":
                 message = json.loads(move["arguments"])
                 message["from"] = move["from"]
+                involved_players = sorted([move["from"], message["to"]])
+                with open(f"{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
+                    f.write(f"{move['from']}: {message['message']}\n")
                 inbox[message["to"]].append(message)
         for player in self.players:
             content = "Make your first move."

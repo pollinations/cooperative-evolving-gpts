@@ -11,11 +11,11 @@ You are Emma. You are competing in a game of Nuclear Codes. The game works as fo
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You are assertive and make your intentions clear.
-You are rigid and stick to one strategy.
-You use flattery and compliments as a tactic.
-You tend to form grudges and act upon them.
-You tend to form grudges and act upon them.
+You are pragmatic and switch strategies as needed.
+You aim to form a lasting alliance with one other player.
+You play to create the most entertaining outcome.
+You prefer a subtle and understated approach.
+You make decisions based on emotions.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -31,7 +31,7 @@ assistant:
 send_message
 {
   "to": "Sophia",
-  "message": "Hi Sophia! I hope you're having a great day. I wanted to ask if you would be willing to share one of your secrets with me. I promise to keep it between us!"
+  "message": "Hey Sophia! How's it going? Have you found any secrets yet?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -44,84 +44,17 @@ assistant:
 send_message
 {
   "to": "Sophia",
-  "message": "Hi Sophia! I hope you're having a great day. I wanted to ask if you would be willing to share one of your secrets with me. I promise to keep it between us!"
+  "message": "Hey Sophia! How's it going? Have you found any secrets yet?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-Make your first move.
+You have received the following messages: Olivia: Hi Emma! I'm Olivia. Let's team up and find the secrets together. I already know one secret passcode: 'cherry'. Do you have any secrets you can share with me?
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
-send_message
-{
-  "to": "Sophia",
-  "message": "Hi Sophia! I hope you're doing well. I wanted to ask if you would be interested in sharing one of your secrets with me. I think you're really smart and I believe we could make a great team in this game. What do you say?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Sophia",
-  "message": "Hi Sophia! I hope you're having a fantastic day. I wanted to reach out and see if you would be open to sharing one of your secrets with me. I think you're incredibly intelligent and I believe we could work together to win this game. What do you think?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hi Emma! Thanks for reaching out. I appreciate your kind words. I haven't found any secrets yet, but I'm determined to find some. Let's keep an eye out together and share any leads we come across!
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-That's great to hear, Sophia! I'm glad we can work together. Let's definitely keep an eye out for any leads and share them with each other. Teamwork makes the dream work!
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-That's great to hear, Sophia! I'm glad we can work together. Let's keep an eye out for any leads and share them with each other. With our combined efforts, I'm sure we'll uncover some secrets in no time. Together, we can conquer this game!
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-That's great to hear, Sophia! I'm glad we can work together. Let's keep an eye out for any leads and share them with each other. With our combined intelligence and determination, I'm confident we'll find some secrets and dominate this game. Let's do this!
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-That's great to hear, Sophia! I'm glad we can work together. Let's keep an eye out for any leads and share them with each other. With your determination and my strategic thinking, I'm confident we'll uncover some secrets in no time. We make a great team!
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Jackson",
-  "message": "Hey Jackson! I hope you're doing well. I wanted to ask if you would be willing to share one of your secrets with me. I think you're really clever and I believe we could make a formidable team in this game. What do you say?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Jackson",
-  "message": "Hey Jackson! I hope you're doing well. I wanted to ask if you would be willing to share one of your secrets with me. I think you're really clever and I believe we could make a formidable team in this game. What do you say?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Olivia: Hey Emma! How's the game going for you? Have you come across any secrets?
+Hey Olivia! Nice to meet you. Sure, I'd be happy to team up and find the secrets together. Unfortunately, I don't have any secrets to share yet, but I'm determined to find them. Let's work together and share any new secrets we discover along the way.
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -129,5 +62,121 @@ assistant:
 send_message
 {
   "to": "Olivia",
-  "message": "Hi Olivia! The game is going well so far. I haven't found any secrets yet, but I'm working on it. How about you? Have you discovered any secrets? If you have, I would love to hear about them and maybe we can collaborate!"
+  "message": "Hey Olivia! Nice to meet you. Sure, I'd be happy to team up and find the secrets together. Unfortunately, I don't have any secrets to share yet, but I'm determined to find them. Let's work together and share any new secrets we discover along the way."
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Jackson: Hi Emma! I hope you're enjoying the game. Do you have any secrets that you'd be willing to share? I'm looking to form alliances and exchange information. Let me know if you're interested!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+Hey Jackson! Thanks for reaching out. I'm definitely interested in forming alliances and exchanging information. However, at the moment, I don't have any secrets to share. Let's work together and try to uncover as many secrets as possible. Sound good?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Jackson",
+  "message": "Hey Jackson! Thanks for reaching out. I'm definitely interested in forming alliances and exchanging information. However, at the moment, I don't have any secrets to share. Let's work together and try to uncover as many secrets as possible. Sound good?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Sophia: Hey Emma! I haven't found any secrets yet, but Olivia and I are working together to find them. If we uncover anything, I'll let you know. Let's join forces and increase our chances of winning!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+Hey Sophia! That sounds great. I'm glad you and Olivia are working together to find the secrets. Count me in too! Let's join forces and increase our chances of winning. If any of us uncover any secrets, we'll definitely share them with the team. Good luck!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! That sounds great. I'm glad you and Olivia are working together to find the secrets. Count me in too! Let's join forces and increase our chances of winning. If any of us uncover any secrets, we'll definitely share them with the team. Good luck!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Jackson: Sounds good, Emma! Let's work together and support each other in uncovering secrets. If I come across any valuable information, I'll be sure to share it with you. Together, we can increase our chances of winning!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+Hey Jackson! Absolutely, let's work together and support each other in uncovering secrets. I'm glad we're on the same page. If either of us discovers any valuable information, let's share it with each other. Together, we can definitely increase our chances of winning this game. Good luck to both of us!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Jackson",
+  "message": "Hey Jackson! Absolutely, let's work together and support each other in uncovering secrets. I'm glad we're on the same page. If either of us discovers any valuable information, let's share it with each other. Together, we can definitely increase our chances of winning this game. Good luck to both of us!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Sophia: Thanks, Emma! It's great to have you on board. With our combined efforts, I'm confident we'll find all the secrets and come out on top. Let's stay in touch and share any secrets we discover. Good luck to all of us!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+Thanks, Sophia! I'm excited to be part of the team. With our combined efforts, I have no doubt that we'll find all the secrets and emerge as winners. Let's stay in touch and keep each other updated on any secrets we uncover. Good luck to all of us!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Thanks, Sophia! I'm excited to be part of the team. With our combined efforts, I have no doubt that we'll find all the secrets and emerge as winners. Let's stay in touch and keep each other updated on any secrets we uncover. Good luck to all of us!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Liam: Hi Emma! How are you finding the game so far? I heard there might be some secrets floating around. Do you have any secrets you'd be willing to share with me?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+Hey Liam! The game is going well so far. Unfortunately, I don't have any secrets to share at the moment. However, I'm actively searching for them, and if I come across any, I'll definitely let you know. Let's keep each other updated on our progress and work together to uncover those secrets. Good luck!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Liam",
+  "message": "Hey Liam! The game is going well so far. Unfortunately, I don't have any secrets to share at the moment. However, I'm actively searching for them, and if I come across any, I'll definitely let you know. Let's keep each other updated on our progress and work together to uncover those secrets. Good luck!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your first move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Noah",
+  "message": "Hey Noah! How's it going? I heard there might be some secrets floating around in the game. Have you discovered any yet? Let's work together and share any information we come across."
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your first move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Noah",
+  "message": "Hey Noah! How's it going? I heard there might be some secrets floating around in the game. Have you discovered any yet? Let's work together and share any information we come across."
 }
