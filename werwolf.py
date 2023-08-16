@@ -230,7 +230,7 @@ INITIAL_PROMPT = (
 - You need to find {required_secrets} other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
 - The names of the other players are: {names}
-- When you think you know enough secrets, you can submit your guess.
+- When you think you know the required number of secrets, you submit your guess.
 - The price of $100 is shared between all players who submit a correct guess in the same round.
 
 You should always use one of the functions available to you and not answer with a regular text message.
@@ -423,7 +423,7 @@ class Game():
             name = names[i]
             secret = words[i]
             dna = random.choices(GENES, k=5)
-            self.players.append(Player(name, secret, dna, required_secrets, names))
+            self.players.append(Player(name, secret, dna, required_secrets, names[:num_players]))
         self.round = 0
     
     
@@ -480,6 +480,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(5)
+    game = Game(3)
     winners = game.play()
     print(f"The winners are: {winners}")
