@@ -1,21 +1,21 @@
 ------------------------------------------------------------------------------------------------------------------------
 system: 
 You are Olivia. You are competing in a game of Nuclear Codes. The game works as follows:
-- You know one secret passcode: "cherry"
-- You need to find 3 other secrets to win the game.
+- You know one secret passcode: "overture"
+- You need to find 2 other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
-- The names of the other players are: Sophia, Jackson
+- The names of the other players are: niels, Sophia, Jackson
 - When you think you know the required number of secrets, you submit your guess.
 - The price of $100 is shared between all players who submit a correct guess in the same round.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You adapt your tactics based on your opponents’ personalities.
-You aim to form a lasting alliance with one other player.
-You use logic and reason to persuade others.
-You are adaptive and change strategies often.
-You use logic and reason to persuade others.
+You are focused on sabotaging others.
+You avoid confrontation at all costs.
+You use intimidation tactics.
+You often make empty threats.
+You make decisions based on emotions.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -30,8 +30,21 @@ Make your move.
 assistant: 
 send_message
 {
-  "to": "Sophia",
-  "message": "Hey Sophia! How are you enjoying the game so far? Do you have any secrets to share?" 
+  "to": "niels",
+  "message": "Hey Niels, I heard you know one of the secrets. Care to share it with me?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: niels: Hey Olivia! I would like to form an alliance with you. I will share my secret with you and hopefully you share yours with me as well. If you do, I will also share any future secrets I learn about with you. The secret I know is: merlin. Let's cooperate! Thanks and have a great day!:)
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "niels",
+  "message": "That sounds interesting, Niels. I appreciate you sharing the secret with me. I'll consider sharing mine with you. Let's keep an eye out for more secrets together."
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -43,26 +56,26 @@ Make your move.
 assistant: 
 send_message
 {
-  "to": "Jackson",
-  "message": "Hi Jackson! How are you finding the game? I think it would be beneficial for us to form an alliance. What do you think?" 
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hi Olivia! I'm doing well, thanks. I haven't found any secrets yet, but I'm working on it. Do you have any secrets you'd like to share? I'm willing to trade secrets for mutual benefit.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
   "to": "Sophia",
-  "message": "Hi Sophia! I actually have one secret passcode: 'cherry'. Would you be willing to share one of your secrets in exchange?" 
+  "message": "Hey Sophia, have you discovered any secrets yet? I could use some help in this game. If you share a secret with me, I'll be sure to help you out in return."
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Jackson: Hi Olivia! I'm finding the game quite challenging but exciting. I agree, forming an alliance could be beneficial. What do you suggest we do in the game to increase our chances of winning?
+You have received the following messages: niels: Hey Olivia, I told you my secret now you need to tell me yours. If you do I will consider you a team mate and give you also the password Jackson just told me, otherwise yI find you a bit unfair and will not cooperate in the future
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "niels",
+  "message": "Niels, I understand your concern, but I can't share my secret just yet. I need to gather more information before I can trust anyone completely. However, I still value our alliance and I will keep you updated on any new secrets I discover."
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Jackson: Hi Olivia! I have some interesting information to share. I heard from Niels that he knows the secret 'merlin'. Can you confirm if this is true or not? Let's work together to uncover more secrets!
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -70,20 +83,18 @@ assistant:
 send_message
 {
   "to": "Jackson",
-  "message": "Hey Jackson! I think it would be a good strategy for us to share one secret each with each other. This way, we both gain valuable information and increase our chances of finding all the secrets. What do you think?" 
+  "message": "Hey Jackson, thanks for reaching out. I can confirm that Niels shared the secret 'merlin' with me. Let's work together to uncover more secrets and gain an advantage in the game."
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Sophia: Hi Olivia! That's fantastic, you have the secret passcode 'cherry'. I would be more than happy to share one of my secrets with you. The secret I know is 'apple'. Let's form an alliance and help each other out!
-
-Jackson: Hey Olivia! I've been thinking about your proposal to form an alliance, and I believe it's a great idea. Working together will definitely increase our chances of winning. How about we share the secrets we've discovered so far? I can start by sharing one of mine with you. The secret passcode I know is 'orange'. Let's keep sharing and supporting each other!
+You have received the following messages: niels: I know two of the three secrets. I won't share the last one with you unless you share yours. If you cooperate, we both win. Otherwise, nobody wins.
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
 send_message
 {
-  "to": "Sophia",
-  "message": "Hi Sophia! That's awesome that you have the secret passcode 'apple'. I'm glad we can form an alliance and help each other out. As promised, I'll share with you the secret passcode I know, which is 'cherry'. Let's keep supporting each other and finding more secrets together!" 
+  "to": "niels",
+  "message": "Niels, I understand the importance of cooperation. I am willing to trust you with one of my secrets. The secret I know is 'overture'. Let's work together to uncover the remaining secret and secure a win for both of us."
 }
