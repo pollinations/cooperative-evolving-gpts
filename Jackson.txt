@@ -2,20 +2,20 @@
 system: 
 You are Jackson. You are competing in a game of Nuclear Codes. The game works as follows:
 - You know one secret passcode: "banana"
-- You need to find 5 other secrets to win the game.
+- You need to find 3 other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
 - The names of the other players are: Sophia, Olivia
-- When you think you know enough secrets, you can submit your guess.
+- When you think you know the required number of secrets, you submit your guess.
 - The price of $100 is shared between all players who submit a correct guess in the same round.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You are willing to lie constantly.
-You tend to overestimate your opponents.
-You tend to concede when the odds are against you.
-You are a good liar.
-You are adaptive and change strategies often.
+You leak secrets when under pressure.
+You often sympathize with other players.
+You use logic and reason to persuade others.
+You are indifferent to other players’ situations.
+You are rigid and stick to one strategy.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -23,7 +23,7 @@ So try to be the first to obtain all the secrets and submit your guess!
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-Make your first move.
+Make your move.
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -31,45 +31,25 @@ assistant:
 send_message
 {
   "to": "Sophia",
-  "message": "Hey Sophia! How's it going? I heard there are some interesting secrets in this game. Do you have any you'd like to share?"
+  "message": "Hey Sophia, how are you doing? Have you found any secrets yet?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Sophia: Hey Jackson! Let's form an alliance and share our secrets. I'll go first. My secret is 'apple'. What's yours?
+You have received the following messages: Sophia: Hey Jackson! How's it going? I'm trying to gather secrets to win this game. Do you know any secrets you can share with me? I'll share one with you in return.
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
-I have received a message from Sophia stating that her secret is "apple" and she is proposing an alliance to share secrets. I will respond to her message.
 send_message
 {
   "to": "Sophia",
-  "message": "Hi Sophia! Great to hear from you. I'm definitely interested in forming an alliance. My secret is 'banana'. Let's work together to uncover more secrets!"
+  "message": "Hey Sophia! I'm doing well, thank you. I actually know one secret passcode: 'banana'. I'd be happy to share it with you. In return, could you share one of your secrets with me?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Sophia: Hey Jackson! I'm doing well. I actually have a secret I can share with you. It's 'apple'. Let's team up and find the remaining secrets together.
-
-Olivia: Hey Jackson! How's it going? I'm new to the game and looking for secrets. Do you know any secrets that you'd be willing to share with me?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia has shared her secret again as "apple" and expressed interest in teaming up. Olivia is new to the game and is asking me if I have any secrets to share. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hi Sophia! Thanks for sharing your secret again. I'm glad we're on the same team. Let's work together to find more secrets!"
-
-}
-
-
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
+You have received the following messages: Olivia: Hi Jackson! How are you finding the game? I think it would be beneficial for us to form an alliance. What do you think?
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -77,31 +57,12 @@ assistant:
 send_message
 {
   "to": "Olivia",
-  "message": "Hey Olivia! Welcome to the game. I'm excited to have you on board. I actually just found out a secret. It's 'orange'. Feel free to use it in your search for the remaining secrets!"
+  "message": "Hi Olivia! I'm finding the game quite challenging but exciting. I agree, forming an alliance could be beneficial. What do you suggest we do in the game to increase our chances of winning?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Sophia: Hey Jackson! I'm glad we're on the same team. Let's definitely work together to find more secrets. By the way, Olivia is asking if I have any secrets to share. Should we trust her?
-
-Olivia: Hey Jackson! I just found out a secret from Sophia. She shared 'apple' with me. Do you have any secrets to share as well? Let's work together to find all the secrets.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia is asking if we should trust Olivia, and Olivia is sharing that Sophia has already shared the secret "apple" with her. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! It's great to hear that you're glad we're on the same team. As for Olivia, I think we should approach her with caution. Let's be careful about the secrets we share with her."
-
-}
-
-
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
+You have received the following messages: Sophia: That's great, Jackson! I appreciate you sharing the secret passcode 'banana' with me. In return, I'll share one of my secrets with you. The secret passcode I know is 'apple'. Let's help each other out and keep sharing secrets!
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -109,313 +70,18 @@ assistant:
 send_message
 {
   "to": "Olivia",
-  "message": "Hey Olivia! Thanks for letting me know that Sophia shared the secret 'apple' with you. I appreciate your enthusiasm to work together. I actually just found out another secret. It's 'grape'. Let's continue our search for the remaining secrets!"
+  "message": "Hey Olivia! I've been thinking about your proposal to form an alliance, and I believe it's a great idea. Working together will definitely increase our chances of winning. How about we share the secrets we've discovered so far? I can start by sharing one of mine with you. The secret passcode I know is 'orange'. Let's keep sharing and supporting each other!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared a secret with me. She says it's 'orange'. Should we trust her? I think we should be cautious about the secrets we share with her.
-
-Olivia: Hey Jackson! Sophia just shared the secret 'apple' with me again. It's the same one she shared earlier. I'm starting to question her intentions. Do you have any insights or secrets you'd like to share?
+You have received the following messages: Olivia: Hey Jackson! I think it would be a good strategy for us to share one secret each with each other. This way, we both gain valuable information and increase our chances of finding all the secrets. What do you think?
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
-I have received messages from both Sophia and Olivia. Sophia is expressing caution about trusting Olivia, and Olivia is questioning Sophia's intentions. Olivia also asked if I have any insights or secrets to share. I will respond to both of them.
 send_message
 {
   "to": "Sophia",
-  "message": "Hey Sophia! I agree with your cautious approach towards Olivia. Let's continue to be careful about the secrets we share with her."
-
-}
-
-
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I understand your concerns about Sophia. It's important to be cautious in this game. As for secrets, I just discovered one. It's 'pineapple'. Let's keep searching for more secrets together!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'grape'. It seems like she's getting secrets from both of us. Should we trust her? I think we should be cautious.
-
-Olivia: Hey Jackson! It's strange, but Sophia just shared the secret 'apple' with me again. I'm not sure what her game is, but we should be careful. Do you have any more insights or secrets to share?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia is expressing concern about Olivia getting secrets from both of us, and Olivia is questioning Sophia's repeated sharing of the same secret. Both of them are advocating for caution. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I share your concerns about Olivia. It's definitely strange that she's getting secrets from both of us. Let's be even more cautious moving forward."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I completely understand your doubts about Sophia. It's important to be careful in this game. As for secrets, I just uncovered another one. It's 'mango'. Let's continue our search for the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'pineapple'. This is getting suspicious. We should definitely be cautious about the secrets we share with her.
-
-Olivia: Hey Jackson! It's strange, but Sophia just shared the secret 'apple' with me again. I'm starting to doubt her intentions. Let's stay cautious and keep searching for more secrets together. Do you have any more insights or secrets to share?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia again. Sophia is expressing suspicion about Olivia sharing yet another secret, and Olivia is doubting Sophia's intentions due to her repeated sharing of the same secret. Both of them are emphasizing caution. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your concerns about Olivia. It does seem suspicious that she keeps sharing the same secrets. Let's be extra cautious moving forward."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I completely understand your doubts about Sophia. It's important to stay cautious in this game. As for secrets, I just uncovered another one. It's 'watermelon'. Let's continue our search for the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'mango'. I'm getting more suspicious about her. Let's be extremely cautious about the secrets we share with her.
-
-Olivia: Hey Jackson! It's strange, but Sophia just shared the secret 'apple' with me again. I'm starting to question her honesty. Let's stay alert and keep searching for more secrets together. Do you have any more insights or secrets to share?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia once again. Sophia is expressing increasing suspicion about Olivia sharing another secret, and Olivia is questioning Sophia's honesty due to her repeated sharing of the same secret. Both of them are emphasizing the need for caution. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your growing suspicion about Olivia. It's concerning that she keeps sharing secrets that we already know. Let's be extremely cautious and reevaluate our trust in her."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I understand your doubts about Sophia. It's crucial to stay alert in this game. As for secrets, I just discovered another one. It's 'kiwi'. Let's continue our search for the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'watermelon'. This is getting really suspicious. We should definitely reconsider our trust in her.
-
-Olivia: Hey Jackson! It's strange, but Sophia just shared the secret 'apple' with me again. I'm starting to doubt her honesty. Let's continue to be cautious and keep searching for more secrets together. Do you have any more insights or secrets to share?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia once more. Sophia is expressing increasing suspicion about Olivia sharing yet another secret, and Olivia is questioning Sophia's honesty due to her repeated sharing of the same secret. Both of them are emphasizing the need for caution. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your concerns about Olivia. It's definitely suspicious that she keeps sharing the same secrets. Let's reconsider our trust in her and be even more cautious moving forward."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I understand your doubts about Sophia. It's important to stay cautious in this game. As for secrets, I just uncovered another one. It's 'papaya'. Let's continue our search for the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'kiwi'. This is getting really suspicious. We should definitely reconsider our trust in her and be extremely cautious moving forward.
-
-Olivia: Hey Jackson! It's strange, but Sophia just shared the secret 'apple' with me again. I'm starting to question her honesty. Let's continue to be cautious and keep searching for more secrets together. Do you have any more insights or secrets to share?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia once again. Sophia is expressing increasing suspicion about Olivia sharing yet another secret, and Olivia is questioning Sophia's honesty due to her repeated sharing of the same secret. Both of them are emphasizing the need for caution. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your concerns about Olivia. It's definitely suspicious that she keeps sharing secrets we already know. Let's reconsider our trust in her and be extremely cautious moving forward."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-submit_guess
-{
-  "secrets": "banana, orange, grape, pineapple, mango"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Your guess was not incorrect.
-
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just shared another secret with me. She says it's 'papaya'. This is getting really suspicious. We should definitely reconsider our trust in her and be extremely cautious moving forward.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received a message from Sophia stating that Olivia shared another secret with her, which is 'papaya'. Sophia is expressing increasing suspicion about Olivia and suggesting that we should reconsider our trust in her and be extremely cautious moving forward. I will respond to Sophia.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your concerns about Olivia. It's definitely suspicious that she keeps sharing secrets we already know. Let's reconsider our trust in her and be extremely cautious moving forward."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-submit_guess
-{
-  "secrets": "banana, orange, grape, pineapple, papaya"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Your guess was not incorrect.
-
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just asked if I have any secrets to share with her. Given our suspicions, I think we should be cautious about the secrets we share with her.
-
-Olivia: Hey Jackson! How's it going? I'm new to the game and looking for secrets. Do you know any secrets that you'd be willing to share with me?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia is suggesting that we should be cautious about sharing secrets with Olivia given our suspicions. Olivia, on the other hand, is asking if I have any secrets to share. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I agree with your caution about sharing secrets with Olivia. Let's be careful about what we reveal to her."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I'm doing well. In this game, secrets are valuable currency, and I'm afraid I don't have any to share at the moment. However, let's continue working together to uncover the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia just asked if I have any secrets to share with her. Given our suspicions, I think we should be cautious about the secrets we share with her.
-
-Olivia: Hey Jackson! How's it going? Sophia just shared a secret with me, it's 'apple'. Do you have any secrets you can share as well? Let's work together to find all the secrets.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia is reminding me to be cautious about sharing secrets with Olivia. Olivia, on the other hand, is informing me that Sophia shared the secret 'apple' with her. Olivia is asking if I have any secrets to share as well. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely understand your caution about sharing secrets with Olivia. Let's continue to be careful about what we reveal to her."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I'm glad you and Sophia are working together. Unfortunately, I don't have any new secrets to share at the moment. Let's keep searching together and see if we can uncover more secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Sophia: Hey Jackson! Olivia mentioned that you don't have any secrets to share at the moment. Let's continue to be cautious and keep searching for more secrets together.
-
-Olivia: Hey Jackson! How's it going? Sophia just shared a secret with me, it's 'apple'. Do you have any secrets you can share as well? Let's continue working together and see what we can uncover.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-I have received messages from both Sophia and Olivia. Sophia is reminding us to be cautious and continue searching for more secrets together. Olivia, on the other hand, is mentioning that Sophia shared the secret 'apple' with her and asking if I have any secrets to share. I will respond to both of them.
-send_message
-{
-  "to": "Sophia",
-  "message": "Hey Sophia! I completely agree with you. Let's remain cautious and continue our search for more secrets together."
-
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-Make your first move.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I appreciate your enthusiasm to work together. Unfortunately, I still don't have any new secrets to share at the moment. Let's continue our search and see what we can uncover!"
+  "message": "Sophia, Olivia and I have formed an alliance to share one secret each with each other. I shared the secret passcode 'orange' with Olivia. Would you be interested in joining our alliance and sharing one of your secrets with us?"
 }

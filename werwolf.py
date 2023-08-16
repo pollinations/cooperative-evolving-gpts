@@ -416,7 +416,7 @@ class Player():
 
 
 class Game():
-    def __init__(self, num_players, required_secrets=5):
+    def __init__(self, num_players, required_secrets):
         self.players = []
         self.required_secrets = required_secrets
         for i in range(num_players):
@@ -445,8 +445,9 @@ class Game():
                     else:
                         looser = [player for player in self.players if player.name == move["from"]][0]
                         looser.history.append({
-                            "role": "user",
-                            "content": f"Your guess was not incorrect."
+                            "role": "function",
+                            "name": "submit_guess",
+                            "content": f"You only got {correct} correct secrets, but you need {self.required_secrets}."
                         })
             if len(winners) > 0:
                 return winners
@@ -464,7 +465,7 @@ class Game():
                     f.write(f"{move['from']}: {message['message']}\n")
                 inbox[message["to"]].append(message)
         for player in self.players:
-            content = "Make your first move."
+            content = "Make your move."
             if len(inbox[player.name]) > 0:
                 formatted_inbox = "\n\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
                 content = f"You have received the following messages: {formatted_inbox}"
@@ -480,6 +481,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(3)
+    game = Game(3, 3)
     winners = game.play()
     print(f"The winners are: {winners}")
