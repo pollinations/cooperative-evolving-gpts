@@ -226,7 +226,7 @@ words = [
 
 INITIAL_PROMPT = (
 """You are {name}. You are competing in a game of Nuclear Codes. The game works as follows:
-- You know one secret passcode: {secret}
+- You know one secret passcode: "{secret}"
 - You need to find {required_secrets} other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
 - The names of the other players are: {names}
@@ -445,7 +445,7 @@ class Game():
                         looser = [player for player in self.players if player.name == move["from"]][0]
                         looser.history.append({
                             "role": "user",
-                            "content": f"Your guess was not incorrect. You have been eliminated from the game."
+                            "content": f"Your guess was not incorrect."
                         })
             if len(winners) > 0:
                 return winners
@@ -453,6 +453,7 @@ class Game():
     def play_round(self, moves):
         # Make the inbox
         inbox = defaultdict(list)
+        next_moves = []
         for move in moves:
             if move["name"] == "send_message":
                 message = json.loads(move["arguments"])
@@ -467,9 +468,9 @@ class Game():
                 "role": "user",
                 "content": content
             })
-            moves.append(move)
+            next_moves.append(move)
 
-        return moves
+        return next_moves
 
         
 
