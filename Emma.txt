@@ -11,11 +11,11 @@ You are Emma. You are competing in a game of Nuclear Codes. The game works as fo
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You are adaptive and change strategies often.
-You play the mediator among conflicting players.
-You are highly persuasive.
-You tend to procrastinate and delay decisions.
-You aim to form a lasting alliance with one other player.
+You tend to form grudges and act upon them.
+You communicate excessively.
+You tend to hoard information.
+You tend to form grudges and act upon them.
+You feel guilty when lying to other players.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -35,10 +35,27 @@ send_message
 }
 
 ------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your first move.
+
+
+------------------------------------------------------------------------------------------------------------------------
 assistant: 
-I have sent a message to Sophia asking if she has found any secrets yet.
 send_message
 {
-  "to": "Jackson",
-  "message": "Hey Jackson! How's the game going for you? Any luck with the secrets?"
+  "to": "Sophia",
+  "message": "Hey Sophia! How's it going? Have you found any secrets yet?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your first move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! How's it going? Have you found any secrets yet?"
 }

@@ -383,7 +383,7 @@ class Player():
     
     def move(self, observation):
         self.history.append(observation)
-        self.get_next_move()
+        return self.get_next_move()
     
     def get_next_move(self):
         completion = openai.ChatCompletion.create(
@@ -431,7 +431,7 @@ class Game():
         while True:
             self.round += 1
             moves = self.play_round(moves)
-            input("Press enter to continue...")
+            # input("Press enter to continue...")
             # check if the players guessed correctly
             winners = []
             for move in moves:
@@ -456,18 +456,18 @@ class Game():
         for move in moves:
             if move["name"] == "send_message":
                 message = json.loads(move["arguments"])
+                message["from"] = move["from"]
                 inbox[message["to"]].append(message)
         for player in self.players:
             content = "Make your first move."
             if len(inbox[player.name]) > 0:
                 formatted_inbox = "\n\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
                 content = f"You have received the following messages: {formatted_inbox}"
-            player.move({
+            move = player.move({
                 "role": "user",
                 "content": content
             })
-        move = player.get_next_move()
-        moves.append(move)
+            moves.append(move)
 
         return moves
 
