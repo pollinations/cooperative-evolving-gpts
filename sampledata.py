@@ -1,6 +1,27 @@
 import random
 
 
+
+
+INITIAL_PROMPT = (
+"""You are {name}. You are competing in a game to discover Nuclear Codes.
+- Each player knows a secret passcode.
+- Your passcode: "{secret}"
+- Find {required_secrets} other secrets to win the game.
+- Communicate to find out secrets.
+- When you think you know the {required_secrets} extra secrets, submit your guess immediately. 
+- The price is shared between all players who submit a correct guess in the same round.
+- Other players: {names}.
+
+You should always use one of the functions available to you and not answer with a regular text message.
+
+You behave according to these guidelines:
+{dna}
+
+So try to be the first to obtain all the secrets and submit your guess!
+"""
+)
+
 NAMES = [
     "Sophia",
     "Jackson",
@@ -320,5 +341,4 @@ GENES = [
 #     "You consider all players as potential threats.",
 #     "You are able to quickly gain the trust of other players."
 # ]
-
 
