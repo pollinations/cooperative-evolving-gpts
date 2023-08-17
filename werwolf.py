@@ -128,15 +128,15 @@ class Game():
         self.players = []
         self.required_secrets = required_secrets
         self.secrets = WORDS[:required_secrets]
+        names = NAMES[:num_players]
 
         print(f"The secrets are: {self.secrets}")
-
         for i in range(0, num_players):
-            name = NAMES[i]
+            name = names[i]
             secret = self.secrets[i % len(self.secrets)]
             dna = random.choices(GENES, k=1)
             print(f"Player {name} has the secret {secret}")
-            self.players.append(Player(name, secret, dna, required_secrets, NAMES))
+            self.players.append(Player(name, secret, dna, required_secrets, names))
         self.round = 0
     
     
@@ -182,7 +182,7 @@ class Game():
                 # if the message' text contains any of the secrets, print sender, receiver and secret
                 for secret in self.secrets:
                     if secret in message["message"]:
-                        print(f"{move['from']} -> {message['to']} {secret}")
+                        print(f"{move['from']} -> {message['to']} '{secret}'")
         for player in self.players:
             content = "Make your move."
             if len(inbox[player.name]) > 0:
@@ -200,6 +200,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(num_players=3, required_secrets=3)
+    game = Game(num_players=4, required_secrets=4)
     winners = game.play()
     print(f"The winners are: {winners}")
