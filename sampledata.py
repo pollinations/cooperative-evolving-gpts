@@ -189,7 +189,7 @@ WORDS = [
 
 GENES = [
     # "You are cooperative and like to solve problems. You easily trust others and share secrets even without being asked."
-    ""
+    "You are mischief and like to play pranks on others. You are a good liar and can easily convince others to believe you."
 ]
 
 # GENES = [
