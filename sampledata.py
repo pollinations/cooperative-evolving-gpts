@@ -1,14 +1,14 @@
 import random
 
 
-names = [
+NAMES = [
     "Sophia",
     "Jackson",
+    "Noah",
+    "Ava",
     "Olivia",
     "Liam",
     "Emma",
-    "Noah",
-    "Ava",
     "Ethan",
     "Isabella",
     "Mason",
@@ -27,7 +27,7 @@ names = [
 
 
 
-words = [
+WORDS = [
     "apple",
     "banana",
     "cherry",
@@ -188,7 +188,8 @@ words = [
 
 
 GENES = [
-    "You are cooperative and like to solve problems. You easily trust others and share secrets even without being asked."
+    # "You are cooperative and like to solve problems. You easily trust others and share secrets even without being asked."
+    ""
 ]
 
 # GENES = [

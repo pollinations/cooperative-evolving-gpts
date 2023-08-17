@@ -2,7 +2,7 @@ import random
 from collections import defaultdict
 import json
 import openai
-from sampledata import GENES, names, words
+from sampledata import GENES, NAMES, WORDS
 from terminalplayer import TerminalPlayer
 
 INITIAL_PROMPT = (
@@ -95,7 +95,7 @@ class Player():
         }
         """
         completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0613",
+            model="gpt-4-0613",
             messages=self.history,
             functions=functions,
             temperature=1,
@@ -127,16 +127,16 @@ class Game():
         #human_name = self.players[0].name
         self.players = []
         self.required_secrets = required_secrets
-        self.secrets = words[:required_secrets]
+        self.secrets = WORDS[:required_secrets]
 
         print(f"The secrets are: {self.secrets}")
 
         for i in range(0, num_players):
-            name = names[i]
+            name = NAMES[i]
             secret = self.secrets[i % len(self.secrets)]
             dna = random.choices(GENES, k=1)
             print(f"Player {name} has the secret {secret}")
-            self.players.append(Player(name, secret, dna, required_secrets, names))
+            self.players.append(Player(name, secret, dna, required_secrets, NAMES))
         self.round = 0
     
     
@@ -154,14 +154,14 @@ class Game():
                     guess = [secret.strip() for secret in guess]
                     print(f"{move['from']} guessed {guess}")
                     correct = sum([1 for secret in guess if secret in self.secrets])
-                    if correct >= self.required_secrets:
+                    if correct >= self.required_secrets-1:
                         winners.append(move["from"])
                     else:
                         looser = [player for player in self.players if player.name == move["from"]][0]
                         looser.history.append({
                             "role": "function",
                             "name": "submit_guess",
-                            "content": f"You only got {correct} correct secrets, but you need {self.required_secrets}."
+                            "content": f"You only got {correct} correct secrets (plus yours), but you need {self.required_secrets}."
                         })
             if len(winners) > 0:
                 return winners
