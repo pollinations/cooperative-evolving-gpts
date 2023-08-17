@@ -185,7 +185,6 @@ words = [
     "yodel",
     "zither"
 ]
-random.shuffle(words)
 
 
 GENES = [

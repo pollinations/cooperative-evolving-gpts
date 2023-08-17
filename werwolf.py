@@ -165,6 +165,7 @@ class Game():
             name = names[i]
             secret = words[i]
             dna = random.choices(GENES, k=1)
+            print(f"Player {name} has the secret {secret}")
             self.players.append(Player(name, secret, dna, required_secrets, names))
         self.round = 0
     
@@ -209,8 +210,8 @@ class Game():
         for player in self.players:
             content = "Make your move."
             if len(inbox[player.name]) > 0:
-                formatted_inbox = "\n\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
-                content = f"You have received the following messages: {formatted_inbox}"
+                formatted_inbox = "\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
+                content = f"{formatted_inbox}"
             move = player.move({
                 "role": "user",
                 "content": content
