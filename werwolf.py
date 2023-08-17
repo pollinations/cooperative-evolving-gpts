@@ -124,7 +124,7 @@ class TerminalPlayer():
         print("Welcome to Nuclear Codes!")
         self.name = input("What is your name?\n")
         print(f"You know the secret: {secret}")
-        print(f"You need to find {required_secrets} other secrets to win the game.")
+        print(f"You need to find {required_secrets -1} other secrets to win the game.")
         print(f"The names of the other players are: {', '.join(names)}")
         self.history = []
         self.secret = secret
@@ -164,7 +164,7 @@ class Game():
             name = names[i]
             secret = words[i]
             dna = random.choices(GENES, k=5)
-            self.players.append(Player(name, secret, dna, required_secrets, [human_name] + names[:num_players]))
+            self.players.append(Player(name, secret, dna, required_secrets, [human_name] + names[1:num_players]))
         self.round = 0
     
     

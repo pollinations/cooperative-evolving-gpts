@@ -1,21 +1,21 @@
 ------------------------------------------------------------------------------------------------------------------------
 system: 
 You are Olivia. You are competing in a game of Nuclear Codes. The game works as follows:
-- You know one secret passcode: "overture"
+- You know one secret passcode: "photon"
 - You need to find 2 other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
-- The names of the other players are: niels, Sophia, Jackson
+- The names of the other players are: dombob, Sophia, Jackson
 - When you think you know the required number of secrets, you submit your guess.
 - The price of $100 is shared between all players who submit a correct guess in the same round.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You are focused on sabotaging others.
-You avoid confrontation at all costs.
-You use intimidation tactics.
-You often make empty threats.
-You make decisions based on emotions.
+You are highly persuasive.
+You play to create the most entertaining outcome.
+You revel in confrontation and conflict.
+You easily fall for bluffs.
+You often underestimate your opponents.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -30,21 +30,8 @@ Make your move.
 assistant: 
 send_message
 {
-  "to": "niels",
-  "message": "Hey Niels, I heard you know one of the secrets. Care to share it with me?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: niels: Hey Olivia! I would like to form an alliance with you. I will share my secret with you and hopefully you share yours with me as well. If you do, I will also share any future secrets I learn about with you. The secret I know is: merlin. Let's cooperate! Thanks and have a great day!:)
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "niels",
-  "message": "That sounds interesting, Niels. I appreciate you sharing the secret with me. I'll consider sharing mine with you. Let's keep an eye out for more secrets together."
+  "to": "dombob",
+  "message": "Hey dombob! How's it going? Want to trade secrets? I'll start by telling you one of mine: the secret passcode is 'photon'. What do you have to offer?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -57,25 +44,12 @@ assistant:
 send_message
 {
   "to": "Sophia",
-  "message": "Hey Sophia, have you discovered any secrets yet? I could use some help in this game. If you share a secret with me, I'll be sure to help you out in return."
+  "message": "Hey Sophia! I hope you're having a great day. Can we make a secret exchange? I'll tell you a secret: the passcode is 'photon'. What secret can you share with me?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: niels: Hey Olivia, I told you my secret now you need to tell me yours. If you do I will consider you a team mate and give you also the password Jackson just told me, otherwise yI find you a bit unfair and will not cooperate in the future
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "niels",
-  "message": "Niels, I understand your concern, but I can't share my secret just yet. I need to gather more information before I can trust anyone completely. However, I still value our alliance and I will keep you updated on any new secrets I discover."
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Jackson: Hi Olivia! I have some interesting information to share. I heard from Niels that he knows the secret 'merlin'. Can you confirm if this is true or not? Let's work together to uncover more secrets!
+Make your move.
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -83,18 +57,143 @@ assistant:
 send_message
 {
   "to": "Jackson",
-  "message": "Hey Jackson, thanks for reaching out. I can confirm that Niels shared the secret 'merlin' with me. Let's work together to uncover more secrets and gain an advantage in the game."
+  "message": "Hi Jackson! How's it going? I think it would be fun to trade secrets. I'll start by telling you one of mine: the secret passcode is 'photon'. What secret can you share with me?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: niels: I know two of the three secrets. I won't share the last one with you unless you share yours. If you cooperate, we both win. Otherwise, nobody wins.
+Make your move.
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
 send_message
 {
-  "to": "niels",
-  "message": "Niels, I understand the importance of cooperation. I am willing to trust you with one of my secrets. The secret I know is 'overture'. Let's work together to uncover the remaining secret and secure a win for both of us."
+  "to": "dombob",
+  "message": "Hey dombob! I've heard a rumor that Sophia knows one of the secrets. I think she might have a secret code. Let's team up and press her for it. Maybe we can convince her to share it with both of us. What do you think?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: Thank you very much. My secret is apples. Do you know the secret JAckson has? He told me its bananas. but im not really trusting this fella. how about we split up the 100 dollar?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! I just spoke to dombob, and he told me his secret is 'apples'. He also mentioned that Jackson's secret is 'bananas'. Can you confirm if this is true? And if so, can you share your secret with us? We can split the $100 if we all submit a correct guess!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Jackson: Hey Olivia! I'm doing well, thanks for asking. That's a cool secret you shared. My secret is 'frog'. Now we both have something to work with. Let's keep this between us, deal?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+submit_guess
+{
+  "secrets": "photon, apples, frog"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+function: 
+You only got 2 correct secrets, but you need 3.
+
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! I just spoke to Jackson, and he mentioned that his secret is 'frog'. Do you have another secret to share? We only need one more secret to win the game and split the $100 prize!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: I think he lied to you, Olivia. He is lying to us all...
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! What makes you think Jackson is lying? Did he say something suspicious? We need to figure out the truth before making our next move."
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Jackson",
+  "message": "Hi Jackson! I just spoke to dombob, and he seems a bit skeptical about your secret being 'frog'. Is there any way you can prove it? We really need to make sure we have the correct secrets before submitting our guess for the game."
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: I checked his secret and i seems to be made  up
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! It seems that Jackson's secret might be made up. Do you have any other secret that you can share with us? We still need one more secret to win the game and split the $100 prize!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Jackson: Hey Olivia! I understand dombob's skepticism. To prove that my secret is 'frog', I can reveal that the secret includes the letters 'f', 'r', 'o', and 'g'. I hope that helps to convince dombob. Let's work together and find the remaining secrets!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+submit_guess
+{
+  "secrets": "photon, apples, frog"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+function: 
+You only got 2 correct secrets, but you need 3.
+
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: Did you find anything about out about jackson? he seems to be up to something. what did he tell you?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! Jackson told me that his secret is 'frog' and he even provided some evidence by mentioning that the secret includes the letters 'f', 'r', 'o', and 'g'. However, I understand your skepticism. Let's keep an eye on Jackson and see if we can gather more information. Do you have any other leads or secrets to share?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Sophia",
+  "message": "Hey Sophia! I just spoke to dombob, and he is suspicious of Jackson's secret being 'frog'. Do you have any information or secrets that can help us out? We still need one more secret to win the game and split the $100 prize!"
 }
