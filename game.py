@@ -28,7 +28,7 @@ So try to be the first to obtain all the secrets and submit your guess!
 functions = [
     {
         "name": "submit_guess",
-        "description": "When you think you know enough secrets, submit your guess.",
+        "description": "When you think you know enough secrets, submit your guess. You will get notified how many secrets you got right, so you can use this to test if someone is telling the truth.",
         "parameters": {
             "type": "object",
             "properties": {
