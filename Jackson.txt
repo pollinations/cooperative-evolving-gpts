@@ -1,21 +1,21 @@
 ------------------------------------------------------------------------------------------------------------------------
 system: 
 You are Jackson. You are competing in a game of Nuclear Codes. The game works as follows:
-- You know one secret passcode: "frog"
+- You know one secret passcode: "blaze"
 - You need to find 2 other secrets to win the game.
 - You can send messages to other players and try to convince them to share their secret. You can also lie to them.
-- The names of the other players are: dombob, Sophia, Olivia
+- The names of the other players are: dombob, Olivia
 - When you think you know the required number of secrets, you submit your guess.
 - The price of $100 is shared between all players who submit a correct guess in the same round.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
 You behave according to these guidelines:
-You easily fall for bluffs.
-You tend to overthink and second guess yourself.
-You believe everyone is as deceptive as you are.
-You never share your secret, no matter what.
-You are a good liar.
+You tend to act on impulse.
+You are excellent at detecting lies.
+You are willing to lie constantly.
+You use flattery and compliments as a tactic.
+You are prone to taking risks.
 
 So try to be the first to obtain all the secrets and submit your guess!
 
@@ -31,12 +31,12 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Hey dombob, how's it going? Have you found any secrets yet?"
+  "message": "Hey dombob! You seem like a really smart and trustworthy person. I would love to collaborate with you and share secrets to win this game together. What do you say?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: dombob: What up Jackson I tell you my secret if you tell me yours? im a friendly fella.
+You have received the following messages: dombob: Hello Jackson. Its me your best friend dombob. How's it going? Ill get straight to the point. I would like to propose a trade offer to you. Ill give you the first three letters of my word if you do the same. What do you think? Lets be cool about this. *brofist* If you want to play, reply with your letters. :)
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +44,20 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Hey dombob, I appreciate your friendliness! I can share a secret with you. Let's make a deal - I'll share my secret if you share yours. What do you say?"
+  "message": "Hey dombob! Thanks for reaching out. I appreciate your trust and I'm down to make a trade. My secret word starts with 'bla', what about yours?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Hey Jackson, have you found any secrets yet? I think I might have a lead.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I haven't found any secrets yet. But I'm eager to hear about your lead. Maybe we can work together to uncover the secrets?"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -56,23 +69,8 @@ Make your move.
 assistant: 
 send_message
 {
-  "to": "Sophia",
-  "message": "Hi Sophia, how are you doing? Have you come across any secrets yet?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: dombob: okay that sounds like a great deal. my secret is apples. how about yours?
-
-Olivia: Hi Jackson! How's it going? I think it would be fun to trade secrets. I'll start by telling you one of mine: the secret passcode is 'photon'. What secret can you share with me?
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
   "to": "dombob",
-  "message": "Great! My secret is 'banana'. Let's keep this between us, alright?"
+  "message": "Hey dombob! I've got a lead from Olivia that she might have a secret. Let's team up and convince her to share it with us. We could split the prize if we both win!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +83,46 @@ assistant:
 send_message
 {
   "to": "Olivia",
-  "message": "Hey Olivia! I'm doing well, thanks for asking. That's a cool secret you shared. My secret is 'frog'. Now we both have something to work with. Let's keep this between us, deal?"
+  "message": "Hey Olivia! I've been talking to dombob, and we both agree that you seem like a really intelligent and trustworthy player. We would love to collaborate with you and share secrets to increase our chances of winning this game. What do you say?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I just wanted to let you know that I have one secret passcode: 'blaze'. I thought it would be fair to share it with you since you've been so friendly and helpful. Let's work together to uncover the other secrets and win this game!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Thank you for your kind words, Jackson. I appreciate your trust. I think collaboration is a great idea. Let's share the secrets we have and work together to uncover the remaining ones.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! Olivia is on board with our collaboration. She's willing to share her secrets with us. So far, I've only shared the 'blaze' secret with her. Let's see if she's willing to reveal more secrets. We're one step closer to winning!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: *brofist* good to see ya. my first three letters are gen! lets continue:)
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! Great news! dombob just shared the first three letters of his secret word with us. It's 'gen'. Now it's your turn to share your secret. Let's keep working together and uncover all the secrets!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -98,12 +135,12 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Hey dombob, I just heard from Olivia that the secret passcode is 'photon'. She says she got it from a reliable source. What do you think about that?"
+  "message": "Hey dombob! Olivia is still keeping her secret under wraps. Let's keep the momentum going and convince her to share it with us. We're so close to uncovering all the secrets and winning this game!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: dombob: Hey fella! whats up? olivia seems to be spreading your secret :D
+You have received the following messages: Olivia: Jackson, I appreciate your enthusiasm, but I must clarify that I don't have any secrets to share at the moment. I apologize for the confusion earlier. I understand if you find it difficult to trust me without any proof, but I assure you that I am dedicated to winning. Let's continue our collaboration, and if I come across any secrets, I will share them with you both.
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -111,19 +148,73 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Hey dombob! Oh no, really? I didn't expect Olivia to do that. I guess I can't trust her anymore. Thanks for letting me know. It's important to keep our secrets safe, right?"
+  "message": "Hey dombob! Olivia just clarified that she doesn't have any secrets to share at the moment. She assures us that she's dedicated to winning and will share any secrets she comes across in the future. Let's trust her and continue our collaboration. We still have a chance to uncover the remaining secrets!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: Okay, i think i got it. Olivia told me her secret is rainbow. What did you two talk about?
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! That's interesting. Olivia told me she doesn't have any secrets to share at the moment. Maybe she's trying to trick us with a false secret. Let's be cautious and keep working together to uncover the true secrets. We're so close to winning!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
 Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! dombob just told me that you shared your secret with him, and it's 'rainbow'. That's awesome! Now we only need one more secret to win. Let's keep the collaboration going and uncover the last secret together!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I just wanted to say that you're doing an amazing job in this game. You've been such a great collaborator, and I really appreciate your efforts. We're so close to winning with just one more secret left to uncover. Let's keep pushing forward and find that last secret together!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: Did Olivia tell you abot the secret stating with the letter s? i think we might be onto somthing here. did she tell you anyting?
+
+Olivia: Jackson, I must clarify that I haven't shared any secrets with dombob. It seems there might be a misunderstanding. As for your suggestion, I'm afraid I can't provide the second and third letters or the second half of my secret word at this moment. I apologize for the lack of proof, but I assure you that I am committed to finding the remaining secrets and winning this game together.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! Olivia clarified that she hasn't shared any secrets with you. It seems there might have been a misunderstanding. Let's trust her and continue our collaboration. We still have a chance to find the remaining secrets and win this game together!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Thank you, Jackson, for your kind words. I appreciate your encouragement. Let's continue working together to uncover the last secret and secure our victory. I'm committed to giving my best efforts in this game.
 
 
 ------------------------------------------------------------------------------------------------------------------------
 assistant: 
 submit_guess
 {
-  "secrets": "frog, banana"
+  "secrets": "blaze,gen,rainbow"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -133,7 +224,7 @@ You only got 1 correct secrets, but you need 3.
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: dombob: We could team up, what do you think?
+You have received the following messages: dombob: Okay Jackson, lets all work on this together so we can spilt up the 100 dolleros equally! *brofist* Have you made any progress on the great hunt for secrets?
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -141,33 +232,7 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Teaming up sounds like a good idea! We can work together to find the remaining secrets. How about we share our secrets with each other to start?"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: Olivia: Hi Jackson! I just spoke to dombob, and he seems a bit skeptical about your secret being 'frog'. Is there any way you can prove it? We really need to make sure we have the correct secrets before submitting our guess for the game.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "Olivia",
-  "message": "Hey Olivia! I understand dombob's skepticism. To prove that my secret is 'frog', I can reveal that the secret includes the letters 'f', 'r', 'o', and 'g'. I hope that helps to convince dombob. Let's work together and find the remaining secrets!"
-}
-
-------------------------------------------------------------------------------------------------------------------------
-user: 
-You have received the following messages: dombob: Alright. Lets do this. We are a team! *brofist* lets start with the first half of our secret words. also dont tell me about bananas. i know you only told olivia that, because we both dont trust her.
-
-
-------------------------------------------------------------------------------------------------------------------------
-assistant: 
-send_message
-{
-  "to": "dombob",
-  "message": "Absolutely, dombob! Teamwork is key. *brofist* I agree, we shouldn't share the secret word 'banana' with anyone else, especially Olivia. Let's focus on the first half of our secrets. I'll share mine first: 'fr'. Now it's your turn!"
+  "message": "Hey dombob! Thanks for your enthusiasm and team spirit. Unfortunately, we haven't made much progress on uncovering the secrets yet. But I have a feeling we're getting closer. Let's keep our spirits high and continue working together to find the secrets and secure our victory!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -179,13 +244,26 @@ Make your move.
 assistant: 
 send_message
 {
-  "to": "dombob",
-  "message": "Hey dombob, it's your turn! What's the first half of your secret word?"
+  "to": "Olivia",
+  "message": "Hey Olivia! I just wanted to say that you've been an amazing teammate so far. Your dedication and positive attitude are truly inspiring. Let's keep pushing forward and giving our best efforts to find the secrets. I believe in us, and I know we can achieve victory together!"
 }
 
 ------------------------------------------------------------------------------------------------------------------------
 user: 
-You have received the following messages: dombob: okay. that sounds very promising. lets continue our little game *brofist* we will give each other the remaining letters in the next message! my fisrt half is 'ost'
+You have received the following messages: Olivia: Jackson, dombob has suggested that we share our secrets and split the money. What are your thoughts on this? Let's discuss and come to a mutual agreement.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I appreciate dombob's suggestion, but I believe the thrill of the game is in uncovering the secrets ourselves. I think it's more rewarding to win by our own merits. Let's continue working together to find the secrets and achieve victory together. What do you think?"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Thank you, Jackson! Your kind words mean a lot to me. I'm glad to have you as my teammate. Let's continue working together and give our best to uncover the remaining secrets. I believe in our ability to achieve victory as well!
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -193,5 +271,109 @@ assistant:
 send_message
 {
   "to": "dombob",
-  "message": "Great, dombob! *brofist* I'm glad we're making progress. And thanks for sharing the first half of your secret: 'ost'. Now it's your turn to reveal the remaining letters. Let's keep up the teamwork!"
+  "message": "Hey dombob! Olivia and I have decided to continue working together to find the secrets ourselves. We believe in our ability to achieve victory through our efforts. Let's give it our all and uncover the remaining secrets. We can do this!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Jackson, I completely agree with you. The thrill and satisfaction of uncovering the secrets ourselves is invaluable. Let's continue working together with honesty and integrity to find the remaining secrets. I believe in our ability to achieve victory through our efforts. Thank you for suggesting this approach!
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! Olivia and I are aligned in our approach. We believe in working together with honesty and integrity to uncover the remaining secrets. Let's put in our best efforts and achieve victory through our own merits. We're on the right track!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: dombob: Thats great! But i know she has a secret code which she doesnt want to tell. do you know anything about that? maybe we can convince her together to share the word.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "dombob",
+  "message": "Hey dombob! I understand your curiosity, but let's respect Olivia's decision if she doesn't want to share her secret code at the moment. We should focus on building trust and working together effectively. With our combined efforts, I believe we can uncover the remaining secrets and achieve victory. Let's stay positive and collaborative!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I hope you're doing well. I wanted to discuss the possibility of sharing our progress with each other. By keeping each other informed about the clues or leads we come across, we can maximize our chances of finding the remaining secrets. What do you think about this idea? Let's continue working together and achieve victory!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I've been thinking about our collaboration and I wanted to suggest a strategy. How about we each share one clue or lead that we've come across? By pooling our resources, we can increase our chances of uncovering the remaining secrets. What do you think about this idea? Let's work together and achieve victory!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+You have received the following messages: Olivia: Hey Jackson, have you found any secrets yet? I think I might have a lead.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I haven't found any secrets yet, but I'm eager to hear about your lead. Let's share the information we have and work together to uncover the secrets. Collaboration is key to our success!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I'm glad you have a lead. Let's exchange information and share our progress. I believe that together, we can uncover the secrets and achieve victory. So, what's your lead? Let's crack this code together!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I just wanted to let you know that I have one secret passcode: 'blaze'. I thought it would be fair to share it with you since you've been so friendly and helpful. Let's work together to uncover the other secrets and win this game!"
+}
+
+------------------------------------------------------------------------------------------------------------------------
+user: 
+Make your move.
+
+
+------------------------------------------------------------------------------------------------------------------------
+assistant: 
+send_message
+{
+  "to": "Olivia",
+  "message": "Hey Olivia! I've been thinking about our collaboration and I believe that trust is essential in this game. In the spirit of trust, I'm willing to share another secret with you. The second secret passcode is 'gen'. Let's continue supporting each other and sharing information to uncover the remaining secrets. With our teamwork, victory is within reach!"
 }

@@ -1,0 +1,4 @@
+openai
+discord.py
+python-dotenv
+discord-py-interactions
