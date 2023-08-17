@@ -178,6 +178,11 @@ class Game():
                 with open(f"conversations/{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
                     f.write(f"{move['from']}: {message['message']}\n")
                 inbox[message["to"]].append(message)
+                
+                # if the message' text contains any of the secrets, print sender, receiver and secret
+                for secret in self.secrets:
+                    if secret in message["message"]:
+                        print(f"{move['from']} -> {message['to']} {secret}")
         for player in self.players:
             content = "Make your move."
             if len(inbox[player.name]) > 0:
