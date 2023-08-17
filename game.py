@@ -183,6 +183,7 @@ class Game():
                 for secret in self.secrets:
                     if secret in message["message"]:
                         print(f"{move['from']} -> {message['to']} '{secret}'")
+                        
         for player in self.players:
             content = "Make your move."
             if len(inbox[player.name]) > 0:
