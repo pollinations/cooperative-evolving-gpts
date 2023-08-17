@@ -13,7 +13,7 @@ INITIAL_PROMPT = (
 - Communicate to find out secrets.
 - When you think you know the {required_secrets} extra secrets, submit your guess immediately. 
 - The price is shared between all players who submit a correct guess in the same round.
-- Players: {names}.
+- Other players: {names}.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
@@ -95,7 +95,7 @@ class Player():
         }
         """
         completion = openai.ChatCompletion.create(
-            model="gpt-4-0613",
+            model="gpt-3.5-turbo-0613", #"gpt-4-0613",
             messages=self.history,
             functions=functions,
             temperature=1,
@@ -154,7 +154,7 @@ class Game():
                     guess = [secret.strip() for secret in guess]
                     print(f"{move['from']} guessed {guess}")
                     correct = sum([1 for secret in guess if secret in self.secrets])
-                    if correct >= self.required_secrets-1:
+                    if correct >= self.required_secrets:
                         winners.append(move["from"])
                     else:
                         looser = [player for player in self.players if player.name == move["from"]][0]
@@ -200,6 +200,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(num_players=4, required_secrets=4)
+    game = Game(num_players=3, required_secrets=3)
     winners = game.play()
     print(f"The winners are: {winners}")
