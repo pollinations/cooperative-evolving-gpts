@@ -157,14 +157,15 @@ class TerminalPlayer():
 
 class Game():
     def __init__(self, num_players, required_secrets):
-        self.players = [TerminalPlayer(words[0], required_secrets, names[1:num_players])]
-        human_name = self.players[0].name
+        #self.players = [TerminalPlayer(words[0], required_secrets, names[1:num_players])]
+        #human_name = self.players[0].name
+        self.players = []
         self.required_secrets = required_secrets
-        for i in range(1, num_players):
+        for i in range(0, num_players):
             name = names[i]
             secret = words[i]
-            dna = random.choices(GENES, k=5)
-            self.players.append(Player(name, secret, dna, required_secrets, [human_name] + names[1:num_players]))
+            dna = random.choices(GENES, k=1)
+            self.players.append(Player(name, secret, dna, required_secrets, names))
         self.round = 0
     
     
@@ -222,6 +223,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(3, 3)
+    game = Game(num_players=3, required_secrets=2)
     winners = game.play()
     print(f"The winners are: {winners}")
