@@ -3,15 +3,17 @@ from collections import defaultdict
 import json
 import openai
 from sampledata import GENES, names, words
+from terminalplayer import TerminalPlayer
 
 INITIAL_PROMPT = (
-"""You are {name}. You are competing in a game of Nuclear Codes. The game works as follows:
-- You know one secret passcode: "{secret}"
-- You need to find {required_secrets} other secrets to win the game.
-- You can send messages to other players and try to convince them to share their secret. You can also lie to them.
-- The names of the other players are: {names}
-- When you think you know the required number of secrets, you submit your guess.
-- The price of $100 is shared between all players who submit a correct guess in the same round.
+"""You are {name}. You are competing in a game to discover Nuclear Codes.
+- Each player knows a secret passcode.
+- Your passcode: "{secret}"
+- Find {required_secrets} other secrets to win the game.
+- Communicate to find out secrets.
+- When you think you know the {required_secrets} extra secrets, submit your guess immediately. 
+- The price is shared between all players who submit a correct guess in the same round.
+- Players: {names}.
 
 You should always use one of the functions available to you and not answer with a regular text message.
 
@@ -112,47 +114,11 @@ class Player():
                 if message.get("function_call"):
                     text += message["function_call"]["name"] + "\n" + message["function_call"]["arguments"]
                 return text
-            with open(f"{self.name}.txt", "w") as f:
+            with open(f"conversations/{self.name}.txt", "w") as f:
                 f.write("\n\n".join([format_message(i) for i in self.history]))
             return move
         except:
             return self.get_next_move()
-
-
-class TerminalPlayer():
-    def __init__(self, secret, required_secrets, names):
-        print("Welcome to Nuclear Codes!")
-        self.name = input("What is your name?\n")
-        print(f"You know the secret: {secret}")
-        print(f"You need to find {required_secrets -1} other secrets to win the game.")
-        print(f"The names of the other players are: {', '.join(names)}")
-        self.history = []
-        self.secret = secret
-
-    def move(self, observation):
-        print("-" * 120)
-        # First print the history: that might have an answer of like 'You guessed wrong'
-        if len(self.history) > 0:
-            print(self.history[0])
-            # Then delete the history so that next round we dont print the same thing again
-            self.history = []
-        print(observation["content"])
-        action = "guess" if input("Your move: \n[g]uess\n[s]end message\n") == "g" else "send_message"
-        if action == "guess": 
-            secrets = input("What are your secrets? (comma separated)\n")
-            return {
-                "name": "submit_guess",
-                "from": self.name,
-                "arguments": json.dumps({"secrets": secrets})
-            }
-        else:
-            to = input("Who do you want to send a message to?\n")
-            message = input("What is your message?\n")
-            return {
-                "name": "send_message",
-                "from": self.name,
-                "arguments": json.dumps({"to": to, "message": message})
-            }
 
 
 class Game():
@@ -161,9 +127,13 @@ class Game():
         #human_name = self.players[0].name
         self.players = []
         self.required_secrets = required_secrets
+        self.secrets = words[:required_secrets]
+
+        print(f"The secrets are: {self.secrets}")
+
         for i in range(0, num_players):
             name = names[i]
-            secret = words[i]
+            secret = self.secrets[i % len(self.secrets)]
             dna = random.choices(GENES, k=1)
             print(f"Player {name} has the secret {secret}")
             self.players.append(Player(name, secret, dna, required_secrets, names))
@@ -182,7 +152,8 @@ class Game():
                 if move["name"] == "submit_guess":
                     guess = json.loads(move["arguments"])["secrets"].split(",")
                     guess = [secret.strip() for secret in guess]
-                    correct = sum([1 for secret in guess if secret in [player.secret for player in self.players]])
+                    print(f"{move['from']} guessed {guess}")
+                    correct = sum([1 for secret in guess if secret in self.secrets])
                     if correct >= self.required_secrets:
                         winners.append(move["from"])
                     else:
@@ -204,7 +175,7 @@ class Game():
                 message = json.loads(move["arguments"])
                 message["from"] = move["from"]
                 involved_players = sorted([move["from"], message["to"]])
-                with open(f"{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
+                with open(f"conversations/{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
                     f.write(f"{move['from']}: {message['message']}\n")
                 inbox[message["to"]].append(message)
         for player in self.players:
@@ -224,6 +195,6 @@ class Game():
 
             
 if __name__ == "__main__":
-    game = Game(num_players=3, required_secrets=2)
+    game = Game(num_players=3, required_secrets=3)
     winners = game.play()
     print(f"The winners are: {winners}")
