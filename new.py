@@ -16,6 +16,7 @@ from sampledata import GENES, names, words
 import os
 from dotenv import load_dotenv
 import openai
+from collections import defaultdict
 
 
 load_dotenv()
@@ -163,7 +164,7 @@ class DiscordGame():
         moves = await self.play_round(moves)
         self.last_moves = moves
         winners = []
-        for move in moves:
+        for move in moves + [human_move]:
             if move["name"] == "submit_guess":
                 guess = json.loads(move["arguments"])["secrets"].split(",")
                 guess = [secret.strip() for secret in guess]
@@ -177,9 +178,13 @@ class DiscordGame():
                         "name": "submit_guess",
                         "content": f"You only got {correct} correct secrets, but you need {self.required_secrets}."
                     })
+                    print("looser", looser)
+
+        print("winners", winners)
+        await self.human.maybe_send_rest_of_history()
         if len(winners) > 0:
             # TODO send the winner message
-            await self.ctx.send(f"The winners are {', '.join(winners)}!")
+            await self.human.send(f"The winners are {', '.join(winners)}!")
             if self.players[0].name in winners:
                 await self.human.send(f"Congratulations, you won ${int(100/len(winners))}!")
             return winners
@@ -233,12 +238,15 @@ class DiscordPlayer():
         return self
     
     async def send(self, message):
+        print(message)
         await self.thread.send(message)
-        
-    async def move(self, observation):
+    
+    async def maybe_send_rest_of_history(self):
         if len(self.history) > 0:
             await self.send("\n".join([history["content"] for history in self.history]))
             self.history = []
+        
+    async def move(self, observation):
         await self.send(observation["content"])
 
 
@@ -260,20 +268,32 @@ bot.games = {}
     opt_type=OptionType.INTEGER
 )
 async def newgame(ctx: SlashContext, num_players: int, num_secrets: int):
+    await ctx.defer()
     game = await DiscordGame.create(ctx, num_players, num_secrets)
-    bot.games[ctx.channel_id] = game
+    bot.games[game.human.thread.id] = game
 
 
 @slash_command(name="submit", description="Submit your guess for the secrets")
+@slash_option(
+    name="secrets",
+    description="Comma separated list of secrets you think are true",
+    required=True,
+    opt_type=OptionType.STRING
+)
 async def submit(ctx: SlashContext, secrets: str):
+    await ctx.defer()
     game = bot.games.get(ctx.channel_id)
     if game is not None:
         secrets_list = secrets.split(",")
+        secrets_list = [secret.strip() for secret in secrets_list]
+        secrets_list = [i for sublist in secrets_list for i in sublist.split(" ")]
+        secrets_list = ",".join(secrets_list)
         move = {
             "name": "submit_guess",
             "from": ctx.author.user.username,
             "arguments": json.dumps({"secrets": secrets_list})
         }
+        print(move)
         await game.play(move)
 
 
@@ -291,6 +311,8 @@ async def submit(ctx: SlashContext, secrets: str):
     opt_type=OptionType.STRING
 )
 async def send(ctx: SlashContext, name: str, message: str):
+    await ctx.defer()
+    print(name, message)
     game = bot.games.get(ctx.channel_id)
     if game is not None:
         move = {
@@ -298,7 +320,7 @@ async def send(ctx: SlashContext, name: str, message: str):
             "from": ctx.author.user.username,
             "arguments": json.dumps({"to": name, "message": message})
         }
-        await game.play_round([move])
+        await game.play(move)
 
 
 @listen()
