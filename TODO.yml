@@ -1,0 +1,9 @@
+TODO
+- better message formatting
+- flow and message order:
+    - immediately show messages sent to the user, remove delay of one round
+    - immediately tell how many secrets are guessed correct
+- after game is done, show chat history of different agents
+    - write in {game_id}/ folder
+- allow multiple recipients of messages
+- multiple rounds: summarize last game

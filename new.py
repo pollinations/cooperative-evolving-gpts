@@ -64,7 +64,7 @@ functions = [
             "properties": {
                 "to": {
                     "type": "string",
-                    "description": "The name of the player you want to send a message to.",
+                    "description": "list of names of the players you want to send a message to. Example: \"Sophia, John\"",
                 },
                 "message": {
                     "type": "string",
@@ -79,7 +79,7 @@ functions = [
 
 
 class Player():
-    def __init__(self, name, secret, dna, required_secrets, names):
+    def __init__(self, name, secret, dna, required_secrets, names, game_id):
         self.dna = dna
         self.secret = secret
         self.name = name
@@ -90,6 +90,7 @@ class Player():
                 "content": INITIAL_PROMPT.format(name=name, dna="\n".join(dna), secret=secret, required_secrets=required_secrets-1, names=", ".join(names))
             }
         ]
+        self.game_id = game_id
     
     async def move(self, observation):
         self.history.append(observation)
@@ -130,10 +131,14 @@ class Player():
                 if message.get("function_call"):
                     text += message["function_call"]["name"] + "\n" + message["function_call"]["arguments"]
                 return text
-            with open(f"{self.name}.txt", "w") as f:
+            with open(f"conversations/{self.game_id}/{self.name}.txt", "w") as f:
                 f.write("\n\n".join([format_message(i) for i in self.history]))
             return move
-        except:
+        except Exception as e:
+            print(self.history)
+            print(completion)
+            print(e)
+            self.history.append({"role": "system", "content": f"Error - you need to reply with a valid function call ({str(e)})."})
             return await self.get_next_move()
         
 
@@ -145,6 +150,8 @@ class DiscordGame():
         self = cls()
         self.ctx = ctx
         self.human = await DiscordPlayer.create(ctx, words[0], required_secrets, names[1:num_players])
+        self.game_id = self.human.thread.id
+        os.makedirs(f"conversations/{self.game_id}", exist_ok=True)
         self.players = [self.human]
 
         human_name = self.players[0].name
@@ -153,70 +160,120 @@ class DiscordGame():
             name = names[i]
             secret = words[i]
             dna = random.choices(GENES, k=5)
-            self.players.append(Player(name, secret, dna, required_secrets, [human_name] + names[1:num_players]))
+            self.players.append(Player(name, secret, dna, required_secrets, [human_name] + names[1:num_players], self.game_id))
         self.round = 0
         self.last_moves = []
+        self.finished = False
+        self.inbox = defaultdict(list)
         return self
-    
+
+    def check_guess(self, move):
+        if move["name"] == "submit_guess":
+            guess = json.loads(move["arguments"])["secrets"].split(",")
+            guess = [secret.strip() for secret in guess]
+            correct = sum([1 for secret in guess if secret in [player.secret for player in self.players]])
+            if correct >= self.required_secrets:
+                return True
+            else:
+                looser = [player for player in self.players if player.name == move["from"]][0]
+                looser.history.append({
+                    "role": "function",
+                    "name": "submit_guess",
+                    "content": f"You only got {correct} correct secrets, but you need {self.required_secrets}."
+                })
+        return False
+
+    async def update_inbox(self, move):
+        if move["name"] == "send_message":
+            message = json.loads(move["arguments"])
+            message["from"] = move["from"]
+            recipients = message["to"].split(",")
+            recipients = [recipient.strip() for recipient in recipients]
+            involved_players = sorted([move["from"]] + recipients)
+            with open(f"conversations/{self.game_id}/{'-'.join(involved_players)}.txt", "a") as f:
+                f.write(f"{move['from']}: {message['message']}\n")
+            for recipient in recipients:
+                self.inbox[recipient].append(message)
+                if recipient == self.human.name:
+                    msg_string = f"**{message['from']}** -> {message['to']} \n: {message['message']}"
+                    await self.human.send(msg_string)
     
     async def play(self, human_move):
-        moves = [human_move] + self.last_moves
-        moves = await self.play_round(moves)
-        self.last_moves = moves
+        """
+        - check if the human guessed correctly to immediately give feedback
+        - let everyone else also do their move
+            - for each player:
+                - get the inbox, make it empty for the next round
+                - ask for the move
+                - put the message into the inbox
+                - return the list of moves that are guesses
+        - check how many players won in this round
+        """
+        # 1: give feedback about guesses
         winners = []
-        for move in moves + [human_move]:
-            if move["name"] == "submit_guess":
-                guess = json.loads(move["arguments"])["secrets"].split(",")
-                guess = [secret.strip() for secret in guess]
-                correct = sum([1 for secret in guess if secret in [player.secret for player in self.players]])
-                if correct >= self.required_secrets:
-                    winners.append(move["from"])
-                else:
-                    looser = [player for player in self.players if player.name == move["from"]][0]
-                    looser.history.append({
-                        "role": "function",
-                        "name": "submit_guess",
-                        "content": f"You only got {correct} correct secrets, but you need {self.required_secrets}."
-                    })
-                    print("looser", looser)
-
-        print("winners", winners)
+        if self.check_guess(human_move):
+            winners.append(self.human.name)
         await self.human.maybe_send_rest_of_history()
+
+        # 2: add the human message to the inbox
+        await self.update_inbox(human_move)
+
+        # 3: play the round
+        winners += await self.play_round()
+
+        # 4: check if the game is finished
         if len(winners) > 0:
             # TODO send the winner message
             await self.human.send(f"The winners are {', '.join(winners)}!")
             if self.players[0].name in winners:
                 await self.human.send(f"Congratulations, you won ${int(100/len(winners))}!")
+            self.finished = True
             return winners
-
         else:
             return None
 
-    async def play_round(self, moves):
-        # Make the inbox
-        inbox = defaultdict(list)
-        next_moves = []
-        for move in moves:
-            if move["name"] == "send_message":
-                message = json.loads(move["arguments"])
-                message["from"] = move["from"]
-                involved_players = sorted([move["from"], message["to"]])
-                with open(f"{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
-                    f.write(f"{move['from']}: {message['message']}\n")
-                inbox[message["to"]].append(message)
+
+
+
+        # moves = [human_move] + self.last_moves
+        # moves = await self.play_round(moves)
+        # self.last_moves = moves
+        # for move in moves:
+        #     if self.check_guess(move):
+        #         winners.append(move["from"])
+
+        # print("winners", winners)
+        # if len(winners) > 0:
+        #     # TODO send the winner message
+        #     await self.human.send(f"The winners are {', '.join(winners)}!")
+        #     if self.players[0].name in winners:
+        #         await self.human.send(f"Congratulations, you won ${int(100/len(winners))}!")
+        #     self.finished = True
+        #     return winners
+        # else:
+        #     return None
+
+    async def play_round(self):
+        winners = []
         for player in self.players:
+            if isinstance(player, DiscordPlayer):
+                continue
+            inbox = self.inbox.pop(player.name, [])
             content = "Make your move."
-            if len(inbox[player.name]) > 0:
-                formatted_inbox = "\n\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
-                content = f"You have received the following messages: {formatted_inbox}"
+            if len(inbox) > 0:
+                formatted_inbox = "\n\n".join([f"{message['from']} to {message['to']}\n: {message['message']}" for message in inbox])
+                content = f"You have received the following messages:\n{formatted_inbox}"
+            print(player.name, content)
             move = await player.move({
                 "role": "user",
                 "content": content
             })
+            print(player.name, move)
             if move is not None:
-                next_moves.append(move)
-
-        return next_moves
+                await self.update_inbox(move)
+                if self.check_guess(move):
+                    winners.append(player.name)
+        return winners
 
 
 class DiscordPlayer():
@@ -247,7 +304,7 @@ class DiscordPlayer():
             self.history = []
         
     async def move(self, observation):
-        await self.send(observation["content"])
+        await self.send("It's your turn")
 
 
 bot = Client(intents=Intents.DEFAULT)
@@ -271,6 +328,7 @@ async def newgame(ctx: SlashContext, num_players: int, num_secrets: int):
     await ctx.defer()
     game = await DiscordGame.create(ctx, num_players, num_secrets)
     bot.games[game.human.thread.id] = game
+    await ctx.send("The game has started")
 
 
 @slash_command(name="submit", description="Submit your guess for the secrets")
@@ -294,13 +352,15 @@ async def submit(ctx: SlashContext, secrets: str):
             "arguments": json.dumps({"secrets": secrets_list})
         }
         print(move)
+        await ctx.send("You guessed: " + secrets_list)
         await game.play(move)
+
 
 
 @slash_command(name="send", description="Send a message to another player in the game")
 @slash_option(
     name="name",
-    description="Name of the player you want to send a message to",
+    description="Names of the players you want to send a message to (comma separated)",
     required=True,
     opt_type=OptionType.STRING
 )
@@ -314,6 +374,7 @@ async def send(ctx: SlashContext, name: str, message: str):
     await ctx.defer()
     print(name, message)
     game = bot.games.get(ctx.channel_id)
+    await ctx.send(f"**{game.human.name} -> name**\n{message}")
     if game is not None:
         move = {
             "name": "send_message",
