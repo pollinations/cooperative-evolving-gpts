@@ -120,7 +120,7 @@ def get_outbox(player, secrets):
             mermaid_print(f"{message['from']} -> {message['to']}: {message['message']}")
             for secret in secrets:
                 if secret in message["message"]:
-                    mermaid_print(f"Note over {message['from']},{message['to']}: SECRET COMMUNICATED: {secret}")
+                    mermaid_print(f"Note over {message['from']},{message['to']}: SECRET: {secret}")
             return message
         except:
             # print to stderr
