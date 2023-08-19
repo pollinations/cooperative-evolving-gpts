@@ -139,7 +139,7 @@ def format_inbox(inbox):
 
 def make_move(player):
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0613",# "gpt-4-0613",#"
+        model= "gpt-4-0613",#"gpt-3.5-turbo-0613",#
         messages=player["history"],
         functions=functions,
         temperature=0.3,

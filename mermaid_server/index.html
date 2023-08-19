@@ -7,13 +7,13 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: black;">
     <div class="mermaid">
         %% Put an initial diagram here if you like %%
     </div>
 
     <script>
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
 
         const eventSource = new EventSource('/events');
 
