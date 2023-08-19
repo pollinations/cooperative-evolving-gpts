@@ -2,7 +2,10 @@
 a simulated game where AI players interact with each other, exchange messages, lose and gain points, and try to guess secret words to win 
 
 # Live Visualization
-`python game.py |  | node mermaid_server/server.js`
+```
+cd mermaid_server && npm install && cd ..
+python game.py | node mermaid_server/server.js
+```
 
 # Game Objective:
 Players aim to correctly guess a set number of secrets. They can send messages to other players and submit their guesses. Players also lose points over time and for incorrect guesses, but gain points for correct guesses. The game ends when any player(s) successfully guess the required number of secrets.
