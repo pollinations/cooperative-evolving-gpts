@@ -18,7 +18,7 @@ app.get('/events', (req, res) => {
     res.flushHeaders();
 
     clients.push(res);
-
+    sendToClients(accumulatedDiagram);
     // Remove clients when they disconnect
     req.on('close', () => {
         clients = clients.filter(client => client !== res);
