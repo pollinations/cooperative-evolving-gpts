@@ -4,7 +4,7 @@ import json
 import openai
 from sampledata import GENES, NAMES, WORDS, INITIAL_PROMPT
 from terminalplayer import TerminalPlayer
-
+import sys
 
 functions = [
     {
@@ -42,7 +42,8 @@ functions = [
 ]
 
 def create_player(name, dna, required_secrets,secret, names):
-    print(f"Player {name} has the secret {secret}")
+    mermaid_print(f"participant {name}")
+    mermaid_print(f"Note right of {name}: Initial secret: {secret}")
     other_names = [other_name for other_name in names if name != other_name]
     return {
         "name": name,
@@ -116,14 +117,14 @@ def get_outbox(player, secrets):
                     breakpoint()
                 f.write(f"{message['from']}: {message['message']}\n")
             # if the message' text contains any of the secrets, print sender, receiver and secret
-            print(f"{message['from']} -> {message['to']} '{message['message']}'")
+            mermaid_print(f"{message['from']} -> {message['to']}: {message['message']}")
             for secret in secrets:
                 if secret in message["message"]:
-                    print(f"!!!SECRET COMMUNICATED!!! {message['from']} -> {message['to']} '{secret}'")
-            
+                    mermaid_print(f"Note over {message['from']},{message['to']}: SECRET COMMUNICATED: {secret}")
             return message
         except:
-            print("Error parsing message arguments", move["arguments"])
+            # print to stderr
+            print("Error parsing message arguments", move["arguments"], file=sys.stderr)
     return None
 
 
@@ -148,7 +149,7 @@ def make_move(player):
     response = completion.choices[0].message.to_dict()
     player_with_new_history = add_to_history(player, response)
     if "function_call" not in response:
-        print("Response did not include function call. Trying again.")
+        print("Response did not include function call. Trying again.", file=sys.stderr)
         player_with_new_history = add_to_history(player, {"role": "user", "content": "Error. Your response did not contain a function call."})
         return make_move(player_with_new_history)
     return player_with_new_history
@@ -169,12 +170,15 @@ def format_message(message):
 
 
 def play_game(num_players, required_secrets):
+    mermaid_print("sequenceDiagram")
     players, secrets = initialize_game(num_players, required_secrets)
     while True:
         players = play_round(players, secrets)
         # check if the players guessed correctly
         players, winners = get_winners(required_secrets, players, secrets)
         if len(winners) > 0:
+            for winner in winners:
+                mermaid_print(f"Note over {winner['name']}: Winner!")
             return winners
 
 def get_winners(required_secrets, players, secrets):
@@ -187,7 +191,7 @@ def get_winners(required_secrets, players, secrets):
         if last_move is not None and last_move["name"] == "submit_guess":
             guess = json.loads(last_move["arguments"])["secrets"].split(",")
             guess = [secret.strip() for secret in guess]
-            print(f"{player['name']} guessed {guess}")
+            mermaid_print(f"Note over {player['name']}: Guess: {guess}")
             correct = sum([1 for secret in guess if secret in secrets])
             mistakes = [secret for secret in guess if secret not in secrets]
             if correct >= required_secrets:
@@ -227,6 +231,12 @@ def add_points(player, points):
         **player,
         "points": player["points"] + points
     }
+
+# function so we can later potentially save it to a file
+def mermaid_print(text):
+    print(text)
+        
+
 
 if __name__ == "__main__":
     # game = Game(num_players=4, required_secrets=3)
