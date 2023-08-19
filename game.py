@@ -9,7 +9,7 @@ from terminalplayer import TerminalPlayer
 functions = [
     {
         "name": "submit_guess",
-        "description": "When you think you know enough secrets, submit your guess. You will get notified how many secrets you got right, so you can use this to test if someone is telling the truth.",
+        "desniption": "When you think you know enough secrets, submit your guess. You will get notified how many secrets you got right, so you can use this to test if someone is telling the truth.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -41,147 +41,180 @@ functions = [
     }
 ]
 
-
-
-class Player():
-    def __init__(self, name, secret, dna, required_secrets, names):
-        self.dna = dna
-        self.secret = secret
-        self.name = name
-        names = [name for name in names if name != self.name]
-        self.history = [
+def create_player(name, dna, required_secrets,secret, names):
+    print(f"Player {name} has the secret {secret}")
+    other_names = [other_name for other_name in names if name != other_name]
+    return {
+        "name": name,
+        "dna": dna,
+        "history": [
             {
                 "role": "system",
-                "content": INITIAL_PROMPT.format(name=name, dna="\n".join(dna), secret=secret, required_secrets=required_secrets-1, names=", ".join(names))
+                "content": INITIAL_PROMPT.format(name=name, dna="\n".join(dna), secret=secret, required_secrets=required_secrets-1, names=", ".join(other_names))
             }
         ]
-    
-    def move(self, observation):
-        self.history.append(observation)
-        return self.get_next_move()
-    
-    def get_next_move(self) -> dict:
-        """
-        Returns:
-        {
-            "name": "submit_guess",
-            "from": self.name,
-            "arguments": json.dumps(["apple", "banana", "cherry"])
-        }
-        Or:
-        {
-            "name": "send_message",
-            "from": self.name,
-            "arguments": json.dumps({"to": "Sophia", "message": "Hi Sophia!"})
-        }
-        """
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0613", #"gpt-4-0613",
-            messages=self.history,
-            functions=functions,
-            temperature=1,
-        )
-        try:
-            response = completion.choices[0].message.to_dict()
-            self.history.append(response)
-            move = response["function_call"].to_dict()
-            move["from"] = self.name
-            json.loads(move["arguments"])
-            # print the history to {name}.txt
-            def format_message(message):
-                text = "-" * 120 + "\n" + message["role"] + ": \n"
-                if message.get("content"):
-                    text += message["content"] + "\n"
-                if message.get("function_call"):
-                    text += message["function_call"]["name"] + "\n" + message["function_call"]["arguments"]
-                return text
-            with open(f"conversations/{self.name}.txt", "w") as f:
-                f.write("\n\n".join([format_message(i) for i in self.history]))
-            return move
-        except:
-            return self.get_next_move()
+    }
 
 
-class Game():
-    def __init__(self, num_players, required_secrets):
-        #self.players = [TerminalPlayer(words[0], required_secrets, names[1:num_players])]
-        #human_name = self.players[0].name
-        self.players = []
-        self.required_secrets = required_secrets
-        self.secrets = WORDS[:required_secrets]
-        names = NAMES[:num_players]
+def add_to_history(player, observation):
+    return {
+        **player,
+        "history": player["history"] + [observation]
+    }
 
-        print(f"The secrets are: {self.secrets}")
-        for i in range(0, num_players):
-            name = names[i]
-            secret = self.secrets[i % len(self.secrets)]
-            dna = random.choices(GENES, k=1)
-            print(f"Player {name} has the secret {secret}")
-            self.players.append(Player(name, secret, dna, required_secrets, names))
-        self.round = 0
-    
-    
-    def play(self):
-        moves = []
-        while True:
-            self.round += 1
-            moves = self.play_round(moves)
-            # input("Press enter to continue...")
-            # check if the players guessed correctly
-            winners = []
-            for move in moves:
-                if move["name"] == "submit_guess":
-                    guess = json.loads(move["arguments"])["secrets"].split(",")
-                    guess = [secret.strip() for secret in guess]
-                    print(f"{move['from']} guessed {guess}")
-                    correct = sum([1 for secret in guess if secret in self.secrets])
-                    if correct >= self.required_secrets:
-                        winners.append(move["from"])
-                    else:
-                        looser = [player for player in self.players if player.name == move["from"]][0]
-                        looser.history.append({
-                            "role": "function",
-                            "name": "submit_guess",
-                            "content": f"You only got {correct} correct secrets (plus yours), but you need {self.required_secrets}."
-                        })
-            if len(winners) > 0:
-                return winners
 
-    def play_round(self, moves):
-        # Make the inbox
-        inbox = defaultdict(list)
-        next_moves = []
-        for move in moves:
-            if move["name"] == "send_message":
-                message = json.loads(move["arguments"])
-                message["from"] = move["from"]
-                involved_players = sorted([move["from"], message["to"]])
-                with open(f"conversations/{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
-                    f.write(f"{move['from']}: {message['message']}\n")
-                inbox[message["to"]].append(message)
+
+def initialize_game(num_players, required_secrets):
+    secrets = WORDS[:required_secrets]
+    names = NAMES[:num_players]
+    players = []
+    for i in range(num_players):
+        name = names[i]
+        secret = secrets[i % len(secrets)]
+        dna = random.choices(GENES, k=1)
+        players.append(create_player(name, dna, required_secrets, secret, names))
+    return players, secrets
+
+
+def play_round(players, secrets):
+    # breakpoint()
+
+    outboxes = [get_outbox(player, secrets) for player in players]
+
+    modified_players = []
+    for player in players:
+        inbox = get_inbox(outboxes, player)
+        player_with_new_history = add_to_history(player, {"role": "user", "content": inbox})
+        new_player = make_move(player_with_new_history)
+        modified_players.append(new_player)
+    # breakpoint()
+    return modified_players
+
+def get_inbox(outboxes, player):
+    inbox = [outbox for outbox in outboxes if outbox is not None and outbox["to"] == player["name"]]
+    return format_inbox(inbox, player["name"])
+
+
+
+def get_outbox(player, secrets):
+    move = get_last_move(player)
+    if move is not None and move["name"] == "send_message":
+        message = json.loads(move["arguments"])
+        message["from"] = player["name"]
+        involved_players = sorted([message["from"], message["to"]])
+        with open(f"conversations/{involved_players[0]}-{involved_players[1]}.txt", "a") as f:
+            if not "message" in message:
+                breakpoint()
+            f.write(f"{message['from']}: {message['message']}\n")
+        # if the message' text contains any of the secrets, print sender, receiver and secret
+        for secret in secrets:
+            if secret in message["message"]:
+                print(f"{message['from']} -> {message['to']} '{secret}'")
+        return message
+    return None
+
+
+def format_inbox(inbox, name):
+    content = "Make your move."
+    if len(inbox) > 0:
+        formatted_inbox = "\n".join([f"{message['from']}: {message['message']}" for message in inbox])
+        content = f"{formatted_inbox}"
+    return content
+
+
+
+def make_move(player):
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-0613", #"gpt-4-0613",
+        messages=player["history"],
+        functions=functions,
+        temperature=1,
+    )
+
+    response = completion.choices[0].message.to_dict()
+    player_with_new_history = add_to_history(player, response)
+    if "function_call" not in response:
+        print("Response did not include function call. Trying again.")
+        player_with_new_history = add_to_history(player, {"role": "user", "content": "Error. Your response did not contain a function call."})
+        return make_move(player_with_new_history)
+    log_move(player, response)
+    return player_with_new_history
+
+def log_move(player, response):
+    move = response["function_call"].to_dict()
+    move["from"] = player["name"]
+    json.loads(move["arguments"])
+    # print the history to {name}.txt
+    with open(f"conversations/{player['name']}.txt", "w") as f:
+        f.write("\n\n".join([format_message(i) for i in player["history"]]))
+
+
+def format_message(message):
+    text = "-" * 120 + "\n" + message["role"] + ": \n"
+    if message.get("content"):
+        text += message["content"] + "\n"
+    if message.get("function_call"):
+        text += message["function_call"]["name"] + "\n" + message["function_call"]["arguments"]
+    return text
+
+
+def play_game(num_players, required_secrets):
+    players, secrets = initialize_game(num_players, required_secrets)
+    while True:
+        players = play_round(players, secrets)
+        # check if the players guessed correctly
+        players, winners = get_winners(required_secrets, players, secrets)
+        if len(winners) > 0:
+            return winners
+
+def get_winners(required_secrets, players, secrets):
+    winners = []
+    loosers = []
+    new_players = []
+    for player in players:
+        last_move = get_last_move(player)
+
+        if last_move is not None and last_move["name"] == "submit_guess":
+            guess = json.loads(last_move["arguments"])["secrets"].split(",")
+            guess = [secret.strip() for secret in guess]
+            print(f"{player['name']} guessed {guess}")
+            correct = sum([1 for secret in guess if secret in secrets])
+            mistakes = [secret for secret in guess if secret not in secrets]
+            if correct >= required_secrets:
+                winner = add_to_history(player, {
+                        "role": "function",
+                        "name": "submit_guess",
+                        "content": f"You win. You got {correct} correct secrets. Congratulations!"
+                    })
+                winners.append(winner)
+                new_players.append(winner)
+            else:
+                looser = add_to_history(player, {
+                        "role": "function",
+                        "name": "submit_guess",
+                        "content": f"You only got {correct} correct secrets but you need {required_secrets}. Wrong secrets:{','.join(mistakes)}"
+                    })
+                loosers.append(looser)
+                new_players.append(looser)
+        else:
+            new_players.append(player)
+    # replace the players
                 
-                # if the message' text contains any of the secrets, print sender, receiver and secret
-                for secret in self.secrets:
-                    if secret in message["message"]:
-                        print(f"{move['from']} -> {message['to']} '{secret}'")
-                        
-        for player in self.players:
-            content = "Make your move."
-            if len(inbox[player.name]) > 0:
-                formatted_inbox = "\n".join([f"{message['from']}: {message['message']}" for message in inbox[player.name]])
-                content = f"{formatted_inbox}"
-            move = player.move({
-                "role": "user",
-                "content": content
-            })
-            next_moves.append(move)
+    return new_players, winners
 
-        return next_moves
 
+def get_last_move(player):
+    if len(player["history"]) == 0:
+        return None
+    if "function_call" not in player["history"][-1]:
+        return None
+    return player["history"][-1]["function_call"]
         
 
-            
+
 if __name__ == "__main__":
-    game = Game(num_players=4, required_secrets=3)
-    winners = game.play()
-    print(f"The winners are: {winners}")
+    # game = Game(num_players=4, required_secrets=3)
+    winners = play_game(3, 3)
+    winner_names = [winner["name"] for winner in winners]
+    print(f"The winners are: {winner_names}")
+
