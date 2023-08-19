@@ -47,6 +47,7 @@ def create_player(name, dna, required_secrets,secret, names):
     return {
         "name": name,
         "dna": dna,
+        "secret": secret,
         "history": [
             {
                 "role": "system",
@@ -84,7 +85,12 @@ def play_round(players, secrets):
     modified_players = []
     for player in players:
         inbox = get_inbox(outboxes, player)
-        player_with_new_history = add_to_history(player, {"role": "user", "content": inbox})
+        secret_and_inbox = "Your secret:" + player["secret"] + "\n" + inbox
+        chat_message = {
+            "role": "user",
+            "content": secret_and_inbox
+        }
+        player_with_new_history = add_to_history(player, chat_message)
         new_player = make_move(player_with_new_history)
         modified_players.append(new_player)
     # breakpoint()
@@ -92,8 +98,7 @@ def play_round(players, secrets):
 
 def get_inbox(outboxes, player):
     inbox = [outbox for outbox in outboxes if outbox is not None and outbox["to"] == player["name"]]
-    return format_inbox(inbox, player["name"])
-
+    return format_inbox(inbox)
 
 
 def get_outbox(player, secrets):
@@ -114,7 +119,7 @@ def get_outbox(player, secrets):
     return None
 
 
-def format_inbox(inbox, name):
+def format_inbox(inbox):
     content = "Make your move."
     if len(inbox) > 0:
         formatted_inbox = "\n".join([f"{message['from']}: {message['message']}" for message in inbox])
@@ -125,10 +130,11 @@ def format_inbox(inbox, name):
 
 def make_move(player):
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0613", #"gpt-4-0613",
+        model="gpt-4-0613",#""gpt-3.5-turbo-0613",# 
         messages=player["history"],
         functions=functions,
-        temperature=1,
+        temperature=0.3,
+        frequency_penalty=0.9,
     )
 
     response = completion.choices[0].message.to_dict()
@@ -137,13 +143,10 @@ def make_move(player):
         print("Response did not include function call. Trying again.")
         player_with_new_history = add_to_history(player, {"role": "user", "content": "Error. Your response did not contain a function call."})
         return make_move(player_with_new_history)
-    log_move(player, response)
+    log_move(player)
     return player_with_new_history
 
-def log_move(player, response):
-    move = response["function_call"].to_dict()
-    move["from"] = player["name"]
-    json.loads(move["arguments"])
+def log_move(player):
     # print the history to {name}.txt
     with open(f"conversations/{player['name']}.txt", "w") as f:
         f.write("\n\n".join([format_message(i) for i in player["history"]]))
