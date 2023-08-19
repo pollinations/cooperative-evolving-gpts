@@ -234,7 +234,7 @@ def add_points(player, points):
 
 # function so we can later potentially save it to a file
 def mermaid_print(text):
-    print(text)
+    print(text, flush=True)
         
 
 
