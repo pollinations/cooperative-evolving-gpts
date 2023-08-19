@@ -242,5 +242,5 @@ if __name__ == "__main__":
     # game = Game(num_players=4, required_secrets=3)
     winners = play_game(3, 3)
     winner_names = [winner["name"] for winner in winners]
-    print(f"The winners are: {winner_names}")
+    # print(f"The winners are: {winner_names}")
 
