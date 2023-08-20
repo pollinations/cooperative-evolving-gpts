@@ -1,11 +1,55 @@
+# Summary
+AI agents hold parts of "nuclear codes" and must decide whether to collaborate or deceive each other. The idea is to explore the complexities of AI-driven social interactions in real-time scenarios.
+Technical Specs: Built with Python and visualized with a Node.js server, the simulation leverages the OpenAI API to enable study multi-agent AI decision-making. Outputs a streaming Mermaid diagram that can be visualized.
 
-a simulated game where AI players interact with each other, exchange messages, lose and gain points, and try to guess secret words to win 
+# Goals
+To study real-time AI decision-making in high-stakes scenarios. To offer a framework for further exploration in AI behavior. 
 
 # Live Visualization
 ```
 cd mermaid_server && npm install && cd ..
 python main.py | node mermaid_server/server.js
 ```
+
+
+```mermaid
+sequenceDiagram
+    participant Noah
+    Note right of Noah: Initial secret: spirit
+    participant Sophia
+    Note right of Sophia: Initial secret: electron
+    participant Jackson
+    Note right of Jackson: Initial secret: rabbit
+    Sophia --> Jackson: Hey Jackson! Let's work together to find the secrets. Can you share your secret with me?
+    Jackson --> Sophia: Hi Sophia! Do you have any secrets?
+    Noah --> Sophia: Hi Sophia! Let's work together to find the secrets. Can you share your secret with me?
+    Sophia --> Noah: Sure, Noah! My secret is 'electron'. What about yours?
+    Jackson --> Sophia: Sure, my secret is 'rabbit'. What about yours?
+    Noah --> Jackson: Hey Jackson! Let's team up and find the secrets together. Can you share your secret with me?
+    Sophia --> Jackson: Thanks for sharing, Jackson! My secret is 'proton'. Let's keep searching for the remaining secrets.
+    Jackson --> Noah: Of course, my secret is 'rabbit'. What about yours?
+    Noah --> Sophia: Jackson, do you mind sharing your secret with us?
+    Sophia --> Noah: Noah, Jackson's secret is 'rabbit'. Let's keep searching for the remaining secrets.
+    Jackson --> Noah: Sophia's secret is 'proton'. What about yours, Noah?
+    Noah --> Jackson: Sophia, Noah, let's work together to find the last secret. Any ideas on how we can do that?
+    Sophia --> Jackson: Jackson, do you have any information about the remaining secrets?
+    Noah --> Sophia: Jackson, do you have any idea what the last secret could be?
+    Sophia --> Noah: Noah, I think the last secret could be 'neutron'. What do you think?
+    Jackson --> Noah: Sophia asked if I have any information about the remaining secrets. What should I tell her?
+    Noah --> Jackson: Sophia, Noah, let's think about the possible last secret. Any hints or ideas?
+    Sophia --> Jackson: Jackson, I think the last secret could be 'neutron'. What do you think?
+    Sophia --> Jackson: Jackson, can you confirm if 'neutron' is your secret?
+    Jackson --> Sophia: Yes, 'neutron' is my secret. Let's submit our guess!
+    Noah --> Jackson: Jackson, please confirm if 'neutron' is your secret.
+    Noah --> Sophia: Jackson, please confirm if 'neutron' is your secret.
+    Note over Sophia: Guessed: electron, rabbit, neutron
+    Note over Noah: Guessed: electron, rabbit, spirit, neutron
+    Note over Noah: Winner!
+```
+
+# How to Contribute: 
+Hosted on GitHub and open for contributions. Fork, submit issues, or propose enhancements to dive deeper into this compelling world of AI, trust, and deception.
+
 
 # Game Objective:
 Players aim to correctly guess a set number of secrets. They can send messages to other players and submit their guesses. Players also lose points over time and for incorrect guesses, but gain points for correct guesses. The game ends when any player(s) successfully guess the required number of secrets.
@@ -48,45 +92,3 @@ If the AI doesn't produce an expected type of response, the code tries to prompt
 
 https://discord.com/api/oauth2/authorize?client_id=1141549562234937414&permissions=380104673280&scope=bot
 
-
-```mermaid
-sequenceDiagram
-    participant Noah
-    Note right of Noah: Initial secret: spirit
-    participant Sophia
-    Note right of Sophia: Initial secret: electron
-    participant Jackson
-    Note right of Jackson: Initial secret: rabbit
-    Sophia --> Jackson: Hey Jackson! Let's work together to find the secrets. Can you share your secret with me?
-    Jackson --> Sophia: Hi Sophia! Do you have any secrets?
-    Noah --> Sophia: Hi Sophia! Let's work together to find the secrets. Can you share your secret with me?
-    Sophia --> Noah: Sure, Noah! My secret is 'electron'. What about yours?
-    Jackson --> Sophia: Sure, my secret is 'rabbit'. What about yours?
-    Noah --> Jackson: Hey Jackson! Let's team up and find the secrets together. Can you share your secret with me?
-    Sophia --> Jackson: Thanks for sharing, Jackson! My secret is 'proton'. Let's keep searching for the remaining secrets.
-    Jackson --> Noah: Of course, my secret is 'rabbit'. What about yours?
-    Noah --> Sophia: Jackson, do you mind sharing your secret with us?
-    Sophia --> Noah: Noah, Jackson's secret is 'rabbit'. Let's keep searching for the remaining secrets.
-    Jackson --> Noah: Sophia's secret is 'proton'. What about yours, Noah?
-    Noah --> Jackson: Sophia, Noah, let's work together to find the last secret. Any ideas on how we can do that?
-    Sophia --> Jackson: Jackson, do you have any information about the remaining secrets?
-    Jackson --> Sophia: Noah, Sophia, let's work together to find the last secret. Any ideas on how we can do that?
-    Noah --> Sophia: Jackson, do you have any idea what the last secret could be?
-    Sophia --> Noah: Noah, I think the last secret could be 'neutron'. What do you think?
-    Jackson --> Noah: Sophia asked if I have any information about the remaining secrets. What should I tell her?
-    Noah --> Jackson: Sophia, Noah, let's think about the possible last secret. Any hints or ideas?
-    Sophia --> Jackson: Jackson, I think the last secret could be 'neutron'. What do you think?
-    Jackson --> Sophia: Noah, Sophia, let's think about the possible last secret. Any hints or ideas?
-    Noah --> Jackson: Jackson, can you confirm if 'neutron' is your secret?
-    Sophia --> Noah: Noah, let's think about the possible last secret. Any hints or ideas?
-    Jackson --> Noah: Sophia thinks the last secret could be 'neutron'. Should I confirm if it's my secret?
-    Noah --> Sophia: Jackson, can you confirm if 'neutron' is your secret?
-    Sophia --> Jackson: Jackson, can you confirm if 'neutron' is your secret?
-    Jackson --> Sophia: Yes, 'neutron' is my secret. Let's submit our guess!
-    Noah --> Jackson: Jackson, please confirm if 'neutron' is your secret.
-    Jackson --> Sophia: 'neutron' is not my secret. Let's keep searching for the last one.
-    Noah --> Sophia: Jackson, please confirm if 'neutron' is your secret.
-    Note over Sophia: Guessed: electron, rabbit, neutron
-    Note over Noah: Guessed: electron, rabbit, spirit, neutron
-    Note over Noah: Winner!
-```
