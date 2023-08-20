@@ -13,8 +13,7 @@
 </head>
 
 <body style="background-color: black;">
-    <div class="mermaid">
-        %% Put an initial diagram here if you like %%
+    <div id="mermaid_container">
     </div>
 
     <script>
@@ -26,7 +25,7 @@
             console.log(event.data);
 
             // Clear the Mermaid container
-            const container = document.querySelector('.mermaid');
+            const container = document.querySelector('#mermaid_container');
             container.innerHTML = '';
 
             // Set the new diagram text

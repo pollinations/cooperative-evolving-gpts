@@ -210,8 +210,8 @@ WORDS = [
 
 
 GENES = [
-    "You are cooperative and like to solve problems. You easily trust others and share secrets even without being asked."
-    # "You are competitive mischevious and like to play pranks on others. But you also cooperate to achieve a common goal.",
+    "You are trusting, cooperative and like to solve problems.",
+    "You are competitive mischevious and don't trust others.",  
 ]
 
 # GENES = [
