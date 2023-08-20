@@ -4,7 +4,7 @@ a simulated game where AI players interact with each other, exchange messages, l
 # Live Visualization
 ```
 cd mermaid_server && npm install && cd ..
-python game.py | node mermaid_server/server.js
+python main.py | node mermaid_server/server.js
 ```
 
 # Game Objective:
